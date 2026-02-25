@@ -1,0 +1,142 @@
+@import '../../../../styles/variables';
+
+.footer {
+  background-color: $color-secondary;
+  color: $color-text-light;
+  padding: $spacing-lg $spacing-xl;
+  margin-top: auto;
+
+  .footer-logo {
+    font-size: $font-size-logo-large;
+    font-weight: $font-weight-bold;
+    color: $color-text-light;
+    letter-spacing: 3px;
+    margin: 0;
+  }
+
+  .section-title {
+    font-size: $font-size-h6;
+    font-weight: $font-weight-normal;
+    margin-bottom: $spacing-md;
+    color: $color-text-light;
+  }
+
+  .contact-section {
+    .contact-info {
+      font-size: $font-size-base;
+      margin: $spacing-sm 0;
+      color: $color-text-light;
+      line-height: 1.8;
+    }
+  }
+
+  .social-section {
+    text-align: right;
+
+    .social-links {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: inline-block;
+      text-align: left;
+
+      li {
+        margin: 0;
+        line-height: 2;
+
+        a {
+          color: $color-text-light;
+          text-decoration: none;
+          font-size: $font-size-base;
+          transition: color $transition-normal, transform $transition-normal;
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+
+          i {
+            font-size: 1.5rem;
+            width: 1.75rem;
+            min-width: 1.75rem;
+            text-align: center;
+          }
+
+          &:hover {
+            color: $color-accent-1;
+            transform: translateX(5px) scale(1.1);
+          }
+        }
+      }
+    }
+  }
+
+  // Responsive
+  @media (max-width: $breakpoint-md) {
+    padding: $spacing-xl $spacing-lg;
+
+    .row {
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-size: $font-size-h1;
+      text-align: center;
+      margin-bottom: $spacing-xl;
+      padding-bottom: $spacing-lg;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .contact-section {
+      text-align: center;
+      margin-bottom: $spacing-xl;
+      padding-bottom: $spacing-lg;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+
+      .section-title {
+        font-size: $font-size-h5;
+        margin-bottom: $spacing-lg;
+      }
+
+      .contact-info {
+        font-size: $font-size-base;
+        margin: $spacing-md 0;
+        line-height: 2;
+      }
+    }
+
+    .social-section {
+      text-align: center;
+
+      .section-title {
+        font-size: $font-size-h5;
+        margin-bottom: $spacing-lg;
+      }
+
+      .social-links {
+        display: block;
+        text-align: center;
+
+        li {
+          margin: $spacing-md 0;
+
+          a {
+            justify-content: center;
+            font-size: $font-size-h6;
+            padding: $spacing-sm;
+
+            i {
+              font-size: 1.75rem;
+              width: 2rem;
+              min-width: 2rem;
+            }
+
+            &:hover {
+              transform: scale(1.1);
+              background-color: rgba(255, 255, 255, 0.1);
+              border-radius: $border-radius-md;
+            }
+          }
+        }
+      }
+    }
+  }
+}

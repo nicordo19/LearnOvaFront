@@ -1,0 +1,31 @@
+<div class="auth-container">
+  <div class="auth-layout">
+    <!-- Section gauche avec image -->
+    <div class="auth-image">
+      <img
+        src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&h=700&fit=crop"
+        alt="E-learning illustration"
+      />
+    </div>
+
+    <!-- Section droite avec formulaire -->
+    <div class="auth-form-section">
+      <form class="auth-form" (submit)="onSubmit()">
+        <input type="email" class="form-input" placeholder="E-mail" required />
+        <input type="password" class="form-input" placeholder="Mot-de-passe" required />
+
+        <label class="checkbox-label">
+          <input type="checkbox" class="form-checkbox" />
+          <span>ce souviens de moi</span>
+        </label>
+
+        <button type="submit" class="submit-btn">Connexion</button>
+      </form>
+
+      <!-- Lien pour aller vers inscription -->
+      <div class="switch-link">
+        <p>Pas encore de compte ? <a [routerLink]="['/register']">S'inscrire</a></p>
+      </div>
+    </div>
+  </div>
+</div>
