@@ -1,0 +1,48 @@
+<div class="auth-container">
+  <div class="auth-layout">
+    <!-- Section gauche avec image -->
+    <div class="auth-image">
+      <img
+        src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&h=700&fit=crop"
+        alt="E-learning illustration"
+      />
+    </div>
+
+    <!-- Section droite avec formulaire -->
+    <div class="auth-form-section">
+      <form class="auth-form" (submit)="onSubmit()">
+        <!-- Boutons radio Étudiant/Professeur -->
+        <div class="user-type">
+          <label class="radio-btn">
+            <input type="radio" name="userType" value="student" checked />
+            <span>Étudiant</span>
+          </label>
+          <label class="radio-btn">
+            <input type="radio" name="userType" value="teacher" />
+            <span>Professeur</span>
+          </label>
+        </div>
+
+        <input type="text" class="form-input" placeholder="Nom Complet" required />
+        <input type="email" class="form-input" placeholder="E-mail" required />
+        <input type="text" class="form-input" placeholder="Profession" required />
+        <input type="password" class="form-input" placeholder="Mot-de-passe" required />
+
+        <label class="checkbox-label special-offers">
+          <input type="checkbox" class="form-checkbox" />
+          <span
+            >Je souhaite recevoir des offres spéciales personnalisées et des conseils
+            d'apprentissage</span
+          >
+        </label>
+
+        <button type="submit" class="submit-btn">S'inscrire</button>
+      </form>
+
+      <!-- Lien pour aller vers connexion -->
+      <div class="switch-link">
+        <p>Déjà un compte ? <a routerLink="/login">Se connecter</a></p>
+      </div>
+    </div>
+  </div>
+</div>

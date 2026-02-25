@@ -1,0 +1,179 @@
+/*
+  ========================================
+  CHARTE GRAPHIQUE NOVA
+  ========================================
+  Analysée depuis le design de l'application
+*/
+
+// ========================================
+// COULEURS PRINCIPALES
+// ========================================
+
+// Dégradé bleu-violet (Navbar) - Couleurs exactes de la navbar
+$color-primary-start: #7b8cde;
+$color-primary-end: #8ba2e8;
+$color-primary-gradient: linear-gradient(135deg, $color-primary-start 0%, $color-primary-end 100%);
+
+// Bleu marine foncé (Footer) - Couleur exacte du footer
+$color-secondary: #2c3e5f;
+$color-secondary-dark: #1e2c42;
+
+// Bleu-violet clair (Sections de contenu)
+$color-content-bg: #c5cef0;
+$color-content-bg-light: #e8ebf9;
+
+// ========================================
+// COULEURS ACCENT
+// ========================================
+
+$color-accent-1: #7dd3c0; // Turquoise (bouton Se Connecter) - exact navbar
+$color-accent-2: #a8f0d9; // Turquoise clair (bouton S'inscrire) - exact navbar
+$color-accent-3: #5bc0de; // Bleu cyan (bordure image)
+
+// ========================================
+// COULEURS TEXTE
+// ========================================
+
+$color-text-primary: #2c3e5f; // Texte principal (bleu foncé)
+$color-text-light: #ffffff; // Texte sur fond foncé - exact navbar/footer
+$color-text-dark: #333333; // Texte sur fond clair - exact navbar
+$color-text-muted: #6c757d; // Texte secondaire
+
+// ========================================
+// COULEURS BACKGROUND
+// ========================================
+
+$color-bg-body: #f5f7fa; // Background principal
+$color-bg-white: #ffffff; // Fond blanc
+$color-bg-light: #f8f9fa; // Fond gris très clair
+
+// ========================================
+// COULEURS D'ÉTAT
+// ========================================
+
+$color-success: #28a745;
+$color-error: #dc3545;
+$color-warning: #ffc107;
+$color-info: #17a2b8;
+
+// ========================================
+// TYPOGRAPHIE
+// ========================================
+
+// Tailles de police
+$font-size-logo: 2rem; // Logo NOVA
+$font-size-logo-large: 2.5rem; // Logo grand format
+$font-size-h1: 2.5rem;
+$font-size-h2: 2rem;
+$font-size-h3: 1.75rem;
+$font-size-h4: 1.5rem;
+$font-size-h5: 1.25rem;
+$font-size-h6: 1.1rem;
+$font-size-base: 1rem;
+$font-size-small: 0.875rem;
+$font-size-xs: 0.75rem;
+
+// Poids de police
+$font-weight-light: 300;
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+
+// Hauteur de ligne
+$line-height-base: 1.5;
+$line-height-heading: 1.2;
+$line-height-tight: 1.25;
+
+// ========================================
+// ESPACEMENT
+// ========================================
+
+$spacing-xs: 0.25rem; // 4px
+$spacing-sm: 0.5rem; // 8px
+$spacing-md: 1rem; // 16px
+$spacing-lg: 1.5rem; // 24px
+$spacing-xl: 2rem; // 32px
+$spacing-2xl: 3rem; // 48px
+$spacing-3xl: 4rem; // 64px
+
+// ========================================
+// BORDER RADIUS
+// ========================================
+
+$border-radius-xs: 2px;
+$border-radius-sm: 4px;
+$border-radius-md: 8px;
+$border-radius-lg: 12px;
+$border-radius-xl: 20px;
+$border-radius-full: 50%;
+
+// ========================================
+// TRANSITIONS
+// ========================================
+
+$transition-fast: 0.15s;
+$transition-normal: 0.3s;
+$transition-slow: 0.5s;
+$transition-ease: ease-in-out;
+
+// ========================================
+// BREAKPOINTS (Responsive)
+// ========================================
+
+$breakpoint-xs: 480px;
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+$breakpoint-xxl: 1400px;
+
+// ========================================
+// SHADOWS
+// ========================================
+
+$shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
+$shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+$shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+$shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.15);
+$shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.2);
+
+// ========================================
+// OPACITÉ
+// ========================================
+
+$opacity-disabled: 0.5;
+$opacity-light: 0.2;
+$opacity-medium: 0.5;
+$opacity-heavy: 0.8;
+
+// ========================================
+// Z-INDEX
+// ========================================
+
+$z-index-dropdown: 1000;
+$z-index-sticky: 1020;
+$z-index-fixed: 1030;
+$z-index-modal-backdrop: 1040;
+$z-index-modal: 1050;
+$z-index-popover: 1060;
+$z-index-tooltip: 1070;
+
+// ========================================
+// DIMENSIONS
+// ========================================
+
+$navbar-height: 70px;
+$footer-height: auto;
+$sidebar-width: 250px;
+$container-max-width: 1200px;
+
+// ========================================
+// BORDURES
+// ========================================
+
+$border-width: 1px;
+$border-width-thick: 2px;
+$border-color: #dee2e6;
+$border-color-light: #e9ecef;
+$border-color-dark: #495057;

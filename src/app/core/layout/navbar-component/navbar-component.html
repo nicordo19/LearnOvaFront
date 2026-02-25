@@ -1,0 +1,43 @@
+<nav class="navbar navbar-expand-lg">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">NOVA</a>
+
+    <!-- Champ de recherche visible uniquement mobile, hors du toggle -->
+    <form class="d-lg-none search-form-mobile ms-2">
+      <input class="form-control search-input" type="search" placeholder="Rechercher" />
+    </form>
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarContent"
+      aria-controls="navbarContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarContent">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="#">Ensegner sur Nova</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Apprendre sur Nova</a>
+        </li>
+      </ul>
+
+      <!-- Champ de recherche visible desktop, hors du collapse sur mobile -->
+      <form class="d-none d-lg-flex search-form mx-auto">
+        <input class="form-control search-input" type="search" placeholder="Rechercher" />
+      </form>
+
+      <div class="auth-buttons">
+        <button [routerLink]="['/login']" class="btn btn-connect">Connexion</button>
+        <button [routerLink]="['/register']" class="btn btn-register">Inscription</button>
+      </div>
+    </div>
+  </div>
+</nav>
