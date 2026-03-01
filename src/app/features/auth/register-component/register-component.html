@@ -10,31 +10,66 @@
 
     <!-- Section droite avec formulaire -->
     <div class="auth-form-section">
-      <form class="auth-form" (submit)="onSubmit()">
+      <form class="auth-form" (ngSubmit)="onSubmit()">
         <!-- Boutons radio Étudiant/Professeur -->
         <div class="user-type">
           <label class="radio-btn">
-            <input type="radio" name="userType" value="student" checked />
+            <input type="radio" name="userType" [(ngModel)]="userType" value="etudiant" required />
             <span>Étudiant</span>
           </label>
+
           <label class="radio-btn">
-            <input type="radio" name="userType" value="teacher" />
+            <input
+              type="radio"
+              name="userType"
+              [(ngModel)]="userType"
+              value="professeur"
+              required
+            />
             <span>Professeur</span>
           </label>
         </div>
 
-        <input type="text" class="form-input" placeholder="Nom Complet" required />
-        <input type="email" class="form-input" placeholder="E-mail" required />
-        <input type="text" class="form-input" placeholder="Profession" required />
-        <input type="password" class="form-input" placeholder="Mot-de-passe" required />
-
-        <label class="checkbox-label special-offers">
-          <input type="checkbox" class="form-checkbox" />
-          <span
-            >Je souhaite recevoir des offres spéciales personnalisées et des conseils
-            d'apprentissage</span
-          >
-        </label>
+        <input
+          [(ngModel)]="firstName"
+          type="text"
+          name="firstName"
+          class="form-input"
+          placeholder="Prénom"
+          required
+        />
+        <input
+          [(ngModel)]="lastName"
+          type="text"
+          name="lastName"
+          class="form-input"
+          placeholder="Nom"
+          required
+        />
+        <input
+          [(ngModel)]="email"
+          type="email"
+          name="email"
+          class="form-input"
+          placeholder="E-mail"
+          required
+        />
+        <input
+          [(ngModel)]="profession"
+          type="text"
+          name="profession"
+          class="form-input"
+          placeholder="Profession"
+          required
+        />
+        <input
+          [(ngModel)]="password"
+          type="password"
+          name="password"
+          class="form-input"
+          placeholder="Mot-de-passe"
+          required
+        />
 
         <button type="submit" class="submit-btn">S'inscrire</button>
       </form>
