@@ -11,12 +11,26 @@
     <!-- Section droite avec formulaire -->
     <div class="auth-form-section">
       <form class="auth-form" (submit)="onSubmit()">
-        <input type="email" class="form-input" placeholder="E-mail" required />
-        <input type="password" class="form-input" placeholder="Mot-de-passe" required />
+        <input
+          type="email"
+          class="form-input"
+          placeholder="E-mail"
+          [(ngModel)]="loginData.email"
+          name="email"
+          required
+        />
+        <input
+          type="password"
+          class="form-input"
+          placeholder="Mot-de-passe"
+          [(ngModel)]="loginData.password"
+          name="password"
+          required
+        />
 
         <label class="checkbox-label">
           <input type="checkbox" class="form-checkbox" />
-          <span>ce souviens de moi</span>
+          <span>Se souvenir de moi</span>
         </label>
 
         <button type="submit" class="submit-btn">Connexion</button>
