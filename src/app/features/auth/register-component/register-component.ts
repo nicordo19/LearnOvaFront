@@ -62,11 +62,9 @@ export class RegisterComponent {
     this.userService.register(formData).subscribe({
       next: (response) => {
         console.log('Inscription réussie', response);
-        alert('Inscription réussie !');
       },
       error: (error) => {
         console.error("Erreur lors de l'inscription", error);
-        alert("Erreur lors de l'inscription. Veuillez réessayer.");
       },
     });
   }

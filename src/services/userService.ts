@@ -6,8 +6,9 @@ import { UserRegister } from '../app/features/auth/register-component/user-regis
   providedIn: 'root',
 })
 export class UserService {
+  private apiUrl = 'http://localhost:8080/api/users';
   constructor(private http: HttpClient) {}
   register(userData: UserRegister) {
-    return this.http.post('http://localhost:8080/api/users/register', userData);
+    return this.http.post(`${this.apiUrl}/register`, userData);
   }
 }
