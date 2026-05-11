@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from './../../../../services/authService';
 
 @Component({
@@ -21,7 +21,10 @@ export class RegisterComponent {
   password: string = '';
   userType: string = '';
 
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+  ) {}
   selectRole(role: string) {
     if (role === 'etudiant') {
       this.etudiant = true;
@@ -62,6 +65,7 @@ export class RegisterComponent {
     this.authService.register(formData).subscribe({
       next: (response) => {
         console.log('Inscription réussie', response);
+        this.router.navigate(['/profile']);
       },
       error: (error) => {
         console.error("Erreur lors de l'inscription", error);
