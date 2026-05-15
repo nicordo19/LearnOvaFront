@@ -30,6 +30,7 @@ export class LoginComponent {
     this.authService.login(this.loginData).subscribe({
       next: (response) => {
         console.log('Connexion réussie', response);
+        this.authService.setLoggedIn(true);
         this.router.navigate(['/profile']);
       },
 
