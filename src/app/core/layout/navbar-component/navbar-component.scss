@@ -109,6 +109,27 @@
     }
   }
 
+  .profile-link {
+    display: flex;
+    align-items: center;
+
+    .btn-profile {
+      padding: $spacing-xs $spacing-md;
+      border-radius: $border-radius-lg;
+      font-weight: $font-weight-medium;
+      background-color: $color-accent-1;
+      color: $color-text-dark;
+      text-decoration: none;
+      transition: all $transition-normal;
+      display: inline-block;
+
+      &:hover {
+        background-color: darken($color-accent-1, 8%);
+        transform: translateY(-1px);
+      }
+    }
+  }
+
   .navbar-toggler {
     border-color: rgba(255, 255, 255, $opacity-medium);
 
@@ -152,6 +173,18 @@
       .btn {
         width: 100%;
         margin: 0;
+      }
+    }
+
+    .profile-link {
+      width: 100%;
+      margin-top: $spacing-sm;
+
+      .btn-profile {
+        width: 100%;
+        text-align: center;
+        display: block;
+        padding: 0.6rem 1rem;
       }
     }
   }

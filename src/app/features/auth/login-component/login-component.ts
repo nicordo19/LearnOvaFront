@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../../services/authService';
 import { LoginRequest } from './login-request';
 @Component({
@@ -16,7 +16,10 @@ export class LoginComponent {
     password: '',
   };
 
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+  ) {}
 
   onSubmit() {
     if (this.loginData.email.trim() === '' || this.loginData.password.trim() === '') {
@@ -27,7 +30,8 @@ export class LoginComponent {
     this.authService.login(this.loginData).subscribe({
       next: (response) => {
         console.log('Connexion réussie', response);
-        alert('Connexion réussie !');
+        this.authService.setLoggedIn(true);
+        this.router.navigate(['/profile']);
       },
 
       error: (error) => {

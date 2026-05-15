@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { UserRegister } from '../app/features/auth/register-component/user-register';
+import { Observable } from 'rxjs';
+import { UserProfileResponse } from '../app/features/auth/profile/userProfileResponse';
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +9,10 @@ import { UserRegister } from '../app/features/auth/register-component/user-regis
 export class UserService {
   private apiUrl = 'http://localhost:8080/api/users';
   constructor(private http: HttpClient) {}
-  register(userData: UserRegister) {
-    return this.http.post(`${this.apiUrl}/register`, userData);
+
+  getProfile(): Observable<UserProfileResponse> {
+    return this.http.get<UserProfileResponse>(`${this.apiUrl}/me`, {
+      withCredentials: true,
+    });
   }
 }

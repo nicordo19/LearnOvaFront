@@ -1,0 +1,45 @@
+<div class="profile-container" *ngIf="loading">
+  <p>Chargement du profil...</p>
+</div>
+
+<div class="profile-container" *ngIf="error">
+  <p class="error-message">{{ error }}</p>
+</div>
+
+<div class="profile-container" *ngIf="user && !loading && !error">
+  <div class="profile-header">
+    <h1>Profil Utilisateur</h1>
+  </div>
+
+  <div class="profile-content">
+    <div class="profile-field">
+      <label>Prénom :</label>
+      <p>{{ user.firstName }}</p>
+    </div>
+
+    <div class="profile-field">
+      <label>Nom :</label>
+      <p>{{ user.lastName }}</p>
+    </div>
+
+    <div class="profile-field">
+      <label>Email :</label>
+      <p>{{ user.email }}</p>
+    </div>
+
+    <div class="profile-field">
+      <label>Profession :</label>
+      <p>{{ user.profession }}</p>
+    </div>
+
+    <div class="profile-field">
+      <label>Rôle :</label>
+      <p>{{ user.role || 'Non défini' }}</p>
+    </div>
+
+    <div class="profile-field">
+      <label>Date d'inscription :</label>
+      <p>{{ user.createdAt | date: 'dd/MM/yyyy' }}</p>
+    </div>
+  </div>
+</div>

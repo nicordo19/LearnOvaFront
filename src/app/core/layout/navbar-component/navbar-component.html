@@ -20,7 +20,7 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarContent">
-      <ul class="navbar-nav me-auto">
+      <ul class="navbar-nav me-auto" *ngIf="!(isLoggedIn$ | async)">
         <li class="nav-item">
           <a class="nav-link" href="#">Ensegner sur Nova</a>
         </li>
@@ -34,9 +34,13 @@
         <input class="form-control search-input" type="search" placeholder="Rechercher" />
       </form>
 
-      <div class="auth-buttons">
+      <div class="auth-buttons" *ngIf="!(isLoggedIn$ | async)">
         <button [routerLink]="['/login']" class="btn btn-connect">Connexion</button>
         <button [routerLink]="['/register']" class="btn btn-register">Inscription</button>
+      </div>
+
+      <div class="profile-link" *ngIf="isLoggedIn$ | async">
+        <a [routerLink]="['/profile']" class="btn-profile">Profil</a>
       </div>
     </div>
   </div>

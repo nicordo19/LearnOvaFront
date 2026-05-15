@@ -65,8 +65,16 @@
     display: none;
   }
 
+  &:hover {
+    background: #6dd9bf;
+  }
+
   &:has(input:checked) {
-    background: #5dd4b8;
+    background: #838e8c;
+
+    &:hover {
+      background: #c7c9c9;
+    }
   }
 
   span {
