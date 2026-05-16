@@ -187,6 +187,16 @@
         padding: 0.6rem 1rem;
       }
     }
+    .logout-button {
+      width: 100%;
+      margin-top: $spacing-sm;
+    }
+    .btn-logout {
+      width: 100%;
+      text-align: center;
+      display: block;
+      padding: 0.6rem 1rem;
+    }
   }
 }
 

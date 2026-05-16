@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">NOVA</a>
+    <a class="navbar-brand" [routerLink]="['/']">NOVA</a>
 
     <!-- Champ de recherche visible uniquement mobile, hors du toggle -->
     <form class="d-lg-none search-form-mobile ms-2">
@@ -41,6 +41,14 @@
 
       <div class="profile-link" *ngIf="isLoggedIn$ | async">
         <a [routerLink]="['/profile']" class="btn-profile">Profil</a>
+      </div>
+
+      <div class="auth-buttons m-2" *ngIf="isLoggedIn$ | async">
+        <button [routerLink]="['/']" class="btn btn-connect">Accueil</button>
+      </div>
+
+      <div class="auth-buttons m-2" *ngIf="isLoggedIn$ | async">
+        <button (click)="authService.logout()" class="btn btn-connect">Déconnexion</button>
       </div>
     </div>
   </div>

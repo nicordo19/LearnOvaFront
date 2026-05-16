@@ -34,4 +34,16 @@ export class AuthService {
   getIsLoggedIn(): boolean {
     return this.isLoggedInSubject.value;
   }
+  logout(): void {
+    this.http.post(`${this.apiUrl}/logout`, {}, { withCredentials: true }).subscribe({
+      next: () => {
+        console.log('Déconnexion réussie');
+        this.setLoggedIn(false);
+      },
+      error: (error) => {
+        console.error('Erreur lors de la déconnexion', error);
+        alert('Erreur lors de la déconnexion. Veuillez réessayer.');
+      },
+    });
+  }
 }

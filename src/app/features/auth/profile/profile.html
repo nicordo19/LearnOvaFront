@@ -6,40 +6,41 @@
   <p class="error-message">{{ error }}</p>
 </div>
 
-<div class="profile-container" *ngIf="user && !loading && !error">
-  <div class="profile-header">
-    <h1>Profil Utilisateur</h1>
-  </div>
+<div class="profile-page" *ngIf="user && !loading && !error">
+  <section class="profile-hero">
+    <div class="profile-hero-head">
+      <div class="avatar">{{ user.firstName.charAt(0) }}{{ user.lastName.charAt(0) }}</div>
 
-  <div class="profile-content">
-    <div class="profile-field">
-      <label>Prénom :</label>
-      <p>{{ user.firstName }}</p>
+      <div class="hero-title-block">
+        <h1>{{ user.firstName }} {{ user.lastName }}</h1>
+        <p class="subtitle">Bienvenue dans ton espace NOVA</p>
+      </div>
     </div>
 
-    <div class="profile-field">
-      <label>Nom :</label>
-      <p>{{ user.lastName }}</p>
-    </div>
+    <div class="identity-grid">
+      <div class="identity-item">
+        <span class="label">Email</span>
+        <span class="value">{{ user.email }}</span>
+      </div>
 
-    <div class="profile-field">
-      <label>Email :</label>
-      <p>{{ user.email }}</p>
-    </div>
+      <div class="identity-item">
+        <span class="label">Profession</span>
+        <span class="value">{{ user.profession }}</span>
+      </div>
 
-    <div class="profile-field">
-      <label>Profession :</label>
-      <p>{{ user.profession }}</p>
-    </div>
+      <div class="identity-item">
+        <span class="label">Role</span>
+        <span class="value badge">{{ user.role || 'Non defini' }}</span>
+      </div>
 
-    <div class="profile-field">
-      <label>Rôle :</label>
-      <p>{{ user.role || 'Non défini' }}</p>
+      <div class="identity-item">
+        <span class="label">Inscrit le</span>
+        <span class="value">{{ user.createdAt | date: 'dd/MM/yyyy' }}</span>
+      </div>
     </div>
+  </section>
 
-    <div class="profile-field">
-      <label>Date d'inscription :</label>
-      <p>{{ user.createdAt | date: 'dd/MM/yyyy' }}</p>
-    </div>
-  </div>
+  <section class="profile-next-step-placeholder">
+    <p>section videos likees.</p>
+  </section>
 </div>
