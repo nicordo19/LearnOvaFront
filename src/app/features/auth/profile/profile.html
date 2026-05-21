@@ -43,6 +43,6 @@
   <section class="profile-next-step-placeholder">
     <p>section vidéos likées.</p>
 
-    <a class="action-button" routerLink="/videos/upload">Ajouter une vidéo</a>
+    <a class="action-button" routerLink="/videos/upload" *ngIf="isProfessor">Ajouter une vidéo</a>
   </section>
 </div>

@@ -12,7 +12,7 @@
     <p class="warning">Votre compte n’a pas le rôle requis pour uploader des vidéos.</p>
   </div>
 
-  <form class="upload-form" (ngSubmit)="onUploadVideo()" *ngIf="isLoggedIn">
+  <form class="upload-form" (ngSubmit)="onUploadVideo()" *ngIf="isLoggedIn && isProfessor">
     <label class="file-input-label" for="videoFile">
       <span>Sélectionner une vidéo</span>
       <input

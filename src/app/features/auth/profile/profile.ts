@@ -15,6 +15,7 @@ export class Profile implements OnInit {
   user: UserProfileResponse | null = null;
   loading = true;
   error: string | null = null;
+  isProfessor = false;
 
   constructor(
     private userService: UserService,
@@ -30,6 +31,7 @@ export class Profile implements OnInit {
         this.user = data;
         this.loading = false;
         this.authService.setCurrentUser(data);
+        this.isProfessor = this.authService.isProfessor();
         this.cdr.markForCheck();
       },
       error: (err) => {
@@ -37,6 +39,7 @@ export class Profile implements OnInit {
         this.error = 'Non connecté ou session expirée.';
         this.loading = false;
         this.authService.setCurrentUser(null);
+        this.isProfessor = false;
         this.cdr.markForCheck();
       },
     });
