@@ -3,6 +3,7 @@ import { LayoutComponent } from './core/layout/layout-component/layout-component
 import { LoginComponent } from './features/auth/login-component/login-component';
 import { Profile } from './features/auth/profile/profile';
 import { RegisterComponent } from './features/auth/register-component/register-component';
+import { UploadVideoComponent } from './features/videos/upload-video-component/upload-video-component';
 
 export const routes: Routes = [
   {
@@ -25,6 +26,10 @@ export const routes: Routes = [
       {
         path: 'profile',
         component: Profile,
+      },
+      {
+        path: 'videos/upload',
+        component: UploadVideoComponent,
       },
     ],
   },

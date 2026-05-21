@@ -1,0 +1,137 @@
+:host {
+  display: block;
+  padding: 1.5rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.upload-video-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 1.25rem;
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+  padding: 2rem;
+}
+
+.upload-header {
+  margin-bottom: 1.75rem;
+}
+
+.upload-header h1 {
+  font-size: 1.75rem;
+  margin-bottom: 0.5rem;
+  color: #111827;
+}
+
+.upload-header p {
+  color: #4b5563;
+  margin: 0;
+}
+
+.upload-form {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.file-input-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 1.25rem;
+  border: 1px dashed #9ca3af;
+  border-radius: 1rem;
+  background: #f8fafc;
+  color: #111827;
+  cursor: pointer;
+}
+
+.file-input-label input {
+  display: none;
+}
+
+.file-details,
+.preview-box,
+.uploaded-video {
+  border: 1px solid #e5e7eb;
+  border-radius: 1rem;
+  padding: 1rem;
+  background: #f8fafc;
+}
+
+.file-details h2,
+.preview-box h2,
+.uploaded-video h2 {
+  margin: 0 0 0.75rem 0;
+  color: #111827;
+}
+
+.file-details ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.file-details li {
+  color: #374151;
+  line-height: 1.75;
+}
+
+.preview-box video,
+.uploaded-video video {
+  width: 100%;
+  border-radius: 0.85rem;
+  margin-top: 0.75rem;
+  background: #000;
+}
+
+.button-row {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.secondary-button {
+  border: none;
+  background: #2563eb;
+  color: #ffffff;
+  padding: 0.95rem 1.5rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.secondary-button:disabled {
+  background: #93c5fd;
+  cursor: not-allowed;
+}
+
+.secondary-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 25px rgba(37, 99, 235, 0.18);
+}
+
+.status-message {
+  font-weight: 600;
+  margin-top: 0.5rem;
+}
+
+.status-message.error {
+  color: #dc2626;
+}
+
+.status-message.success {
+  color: #16a34a;
+}
+
+.upload-state {
+  padding: 1rem 1.25rem;
+  border-radius: 1rem;
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.uploaded-video a {
+  color: #1d4ed8;
+  word-break: break-word;
+}

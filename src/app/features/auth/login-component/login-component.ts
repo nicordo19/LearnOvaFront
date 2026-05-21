@@ -31,9 +31,19 @@ export class LoginComponent {
       next: (response) => {
         console.log('Connexion réussie', response);
         this.authService.setLoggedIn(true);
-        this.router.navigate(['/profile']);
-      },
 
+        // ✅ Charger le profil pour que currentUser$ soit rempli
+        this.authService.loadProfile().subscribe({
+          next: (profile) => {
+            this.authService.setCurrentUser(profile);
+            this.router.navigate(['/profile']);
+          },
+          error: (err) => {
+            console.error('Erreur lors du chargement du profil:', err);
+            this.router.navigate(['/profile']);
+          },
+        });
+      },
       error: (error) => {
         console.error('Erreur lors de la connexion', error);
         alert('Erreur lors de la connexion. Veuillez réessayer.');
