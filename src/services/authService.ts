@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { LoginRequest } from '../app/features/auth/login-component/login-request';
 import { LoginResponse } from '../app/features/auth/login-component/login-response';
@@ -20,6 +21,7 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
+    private router: Router,
     private userService: UserService,
   ) {}
 
@@ -73,6 +75,7 @@ export class AuthService {
       next: () => {
         console.log('Déconnexion réussie');
         this.setCurrentUser(null);
+        this.router.navigate(['/login']);
       },
       error: (error) => {
         console.error('Erreur lors de la déconnexion', error);
