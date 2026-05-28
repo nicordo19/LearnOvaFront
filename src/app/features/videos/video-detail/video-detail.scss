@@ -1,0 +1,108 @@
+@import '../../../../styles/variables';
+
+.video-detail {
+  max-width: $container-max-width;
+  margin: $spacing-xl auto;
+  padding: 0 $spacing-md;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-xs;
+  margin-bottom: $spacing-md;
+  color: $color-text-primary;
+  font-weight: $font-weight-semibold;
+  text-decoration: none;
+}
+
+.back-link span {
+  font-size: $font-size-h5;
+  line-height: 1;
+}
+
+.back-link:hover {
+  color: $color-primary-start;
+}
+
+.detail-state {
+  padding: $spacing-xl;
+  border: $border-width solid $border-color-light;
+  border-radius: $border-radius-md;
+  background: $color-bg-white;
+  color: $color-text-muted;
+  text-align: center;
+  box-shadow: $shadow-xs;
+}
+
+.detail-state p {
+  margin: 0;
+}
+
+.error-message {
+  color: $color-error;
+  font-weight: $font-weight-medium;
+}
+
+.video-watch {
+  display: grid;
+  gap: $spacing-lg;
+}
+
+.watch-player {
+  overflow: hidden;
+  border-radius: $border-radius-md;
+  background: $color-secondary-dark;
+  box-shadow: $shadow-md;
+}
+
+.watch-player video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: $color-secondary-dark;
+}
+
+.watch-content {
+  display: grid;
+  gap: $spacing-sm;
+}
+
+.watch-content h1 {
+  margin: 0;
+  color: $color-text-primary;
+  font-size: $font-size-h3;
+  font-weight: $font-weight-bold;
+  line-height: $line-height-tight;
+  overflow-wrap: anywhere;
+}
+
+.watch-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-sm $spacing-md;
+  color: $color-text-muted;
+  font-size: $font-size-small;
+  font-weight: $font-weight-medium;
+}
+
+.watch-description {
+  margin: $spacing-sm 0 0;
+  padding: $spacing-md;
+  border-radius: $border-radius-md;
+  background: $color-bg-light;
+  color: $color-text-primary;
+  line-height: $line-height-base;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: $breakpoint-md) {
+  .video-detail {
+    margin: $spacing-lg auto;
+  }
+
+  .watch-content h1 {
+    font-size: $font-size-h4;
+  }
+}

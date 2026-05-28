@@ -169,6 +169,24 @@
   box-shadow: $shadow-md;
 }
 
+.video-detail-link,
+.video-title-link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.video-detail-link:focus-visible,
+.video-title-link:focus-visible {
+  outline: $border-width-thick solid $color-accent-1;
+  outline-offset: $spacing-xs;
+  border-radius: $border-radius-sm;
+}
+
+.video-title-link:hover h3 {
+  color: $color-primary-start;
+}
+
 .video-frame {
   aspect-ratio: 16 / 9;
   background: $color-secondary-dark;

@@ -1,41 +1,50 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { VideoService } from '../../../../services/videoService';
 import { UserVideo } from '../user-video';
 
 @Component({
   standalone: true,
-  selector: 'app-home-videos',
+  selector: 'app-video-detail',
   imports: [CommonModule, RouterLink],
-  templateUrl: './home-videos.html',
-  styleUrl: './home-videos.scss',
+  templateUrl: './video-detail.html',
+  styleUrl: './video-detail.scss',
 })
-export class HomeVideos implements OnInit, OnDestroy {
-  videos: UserVideo[] = [];
+export class VideoDetail implements OnInit, OnDestroy {
+  video: UserVideo | null = null;
   loading = true;
   error: string | null = null;
   private readonly destroy$ = new Subject<void>();
 
   constructor(
+    private route: ActivatedRoute,
     private videoService: VideoService,
     private cdr: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
+    const videoId = this.route.snapshot.paramMap.get('id');
+
+    if (!videoId) {
+      this.error = 'Vidéo introuvable.';
+      this.loading = false;
+      return;
+    }
+
     this.videoService
-      .getAllVideos()
+      .getVideoById(videoId)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
-        next: (videos) => {
-          this.videos = videos;
+        next: (video) => {
+          this.video = video;
           this.loading = false;
           this.cdr.markForCheck();
         },
         error: (error) => {
-          console.error('Erreur lors du chargement du feed vidéos :', error);
-          this.error = 'Impossible de charger les vidéos pour le moment.';
+          console.error('Erreur lors du chargement de la vidéo :', error);
+          this.error = 'Impossible de charger cette vidéo.';
           this.loading = false;
           this.cdr.markForCheck();
         },

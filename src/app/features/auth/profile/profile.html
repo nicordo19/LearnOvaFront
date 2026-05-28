@@ -60,17 +60,21 @@
 
     <div class="video-grid" *ngIf="!loadingVideos && videos.length > 0">
       <article class="video-card" *ngFor="let video of videos">
-        <div class="video-frame">
-          <video
-            [src]="video.secureUrl ?? video.secure_url ?? video.url ?? video.publicUrl ?? video.fileUrl ?? video.videoUrl"
-            controls
-            muted
-          ></video>
-        </div>
+        <a class="video-detail-link" [routerLink]="['/videos', video.id]">
+          <div class="video-frame">
+            <video
+              [src]="video.secureUrl ?? video.secure_url ?? video.url ?? video.publicUrl ?? video.fileUrl ?? video.videoUrl"
+              muted
+              preload="metadata"
+            ></video>
+          </div>
+        </a>
 
         <div class="video-card-body">
           <ng-container *ngIf="editingVideoId !== video.id; else editVideoForm">
-            <h3>{{ video.title || 'Vidéo' }}</h3>
+            <a class="video-title-link" [routerLink]="['/videos', video.id]">
+              <h3>{{ video.title || 'Vidéo' }}</h3>
+            </a>
             <p class="video-description" *ngIf="video.description">{{ video.description }}</p>
 
             <div class="video-card-footer">

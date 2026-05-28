@@ -20,16 +20,18 @@
 
   <div class="video-feed-grid" *ngIf="!loading && !error && videos.length > 0">
     <article class="feed-video-card" *ngFor="let video of videos">
-      <div class="feed-video-frame">
-        <video *ngIf="getVideoSource(video) as videoSource" [src]="videoSource" controls muted preload="metadata"></video>
-      </div>
+      <a class="feed-video-link" [routerLink]="['/videos', video.id]">
+        <div class="feed-video-frame">
+          <video *ngIf="getVideoSource(video) as videoSource" [src]="videoSource" muted preload="metadata"></video>
+        </div>
 
-      <div class="feed-video-body">
-        <h2>{{ video.title || 'Cours vidéo' }}</h2>
-        <p class="teacher-name">{{ getUploaderName(video) }}</p>
-        <p class="video-description" *ngIf="video.description">{{ video.description }}</p>
-        <p class="video-date">{{ video.createdAt | date: 'dd/MM/yyyy' }}</p>
-      </div>
+        <div class="feed-video-body">
+          <h2>{{ video.title || 'Cours vidéo' }}</h2>
+          <p class="teacher-name">{{ getUploaderName(video) }}</p>
+          <p class="video-description" *ngIf="video.description">{{ video.description }}</p>
+          <p class="video-date">{{ video.createdAt | date: 'dd/MM/yyyy' }}</p>
+        </div>
+      </a>
     </article>
   </div>
 </section>
