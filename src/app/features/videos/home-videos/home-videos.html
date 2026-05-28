@@ -1,0 +1,34 @@
+<section class="home-videos">
+  <div class="home-videos-header">
+    <div>
+      <h1>Vidéos de cours</h1>
+      <p>Retrouve les dernières vidéos publiées par les professeurs.</p>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="feed-state">
+    <p>Chargement des vidéos...</p>
+  </div>
+
+  <div *ngIf="error && !loading" class="feed-state error-message">
+    <p>{{ error }}</p>
+  </div>
+
+  <div *ngIf="!loading && !error && videos.length === 0" class="feed-state">
+    <p>Aucune vidéo publiée pour le moment.</p>
+  </div>
+
+  <div class="video-feed-grid" *ngIf="!loading && !error && videos.length > 0">
+    <article class="feed-video-card" *ngFor="let video of videos">
+      <div class="feed-video-frame">
+        <video *ngIf="getVideoSource(video) as videoSource" [src]="videoSource" controls muted preload="metadata"></video>
+      </div>
+
+      <div class="feed-video-body">
+        <h2>{{ video.title || 'Cours vidéo' }}</h2>
+        <p class="teacher-name">{{ getUploaderName(video) }}</p>
+        <p class="video-date">{{ video.createdAt | date: 'dd/MM/yyyy' }}</p>
+      </div>
+    </article>
+  </div>
+</section>

@@ -9,4 +9,10 @@ export interface UserVideo {
   videoUrl?: string;
   createdAt: string;
   description?: string;
+  userFirstName?: string;
+  userLastName?: string;
+  userFirstname?: string;
+  userLastname?: string;
+  userfirstname?: string;
+  userlastname?: string;
 }

@@ -46,6 +46,12 @@ export class VideoService {
     });
   }
 
+  getAllVideos(): Observable<UserVideo[]> {
+    return this.http.get<UserVideo[]>(this.apiUrl, {
+      withCredentials: true,
+    });
+  }
+
   deleteVideo(videoId: string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${videoId}`, {
       withCredentials: true,

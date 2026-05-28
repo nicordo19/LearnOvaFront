@@ -1,0 +1,146 @@
+@import '../../../../styles/variables';
+
+.home-videos {
+  max-width: $container-max-width;
+  margin: $spacing-xl auto;
+  padding: 0 $spacing-md;
+}
+
+.home-videos-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: $spacing-md;
+  margin-bottom: $spacing-lg;
+}
+
+.home-videos-header h1 {
+  margin: 0;
+  color: $color-text-primary;
+  font-size: $font-size-h3;
+  font-weight: $font-weight-bold;
+}
+
+.home-videos-header p {
+  margin: $spacing-xs 0 0;
+  color: $color-text-muted;
+}
+
+.feed-state {
+  padding: $spacing-xl;
+  border: $border-width solid $border-color-light;
+  border-radius: $border-radius-md;
+  background: $color-bg-white;
+  color: $color-text-muted;
+  text-align: center;
+  box-shadow: $shadow-xs;
+}
+
+.feed-state p {
+  margin: 0;
+}
+
+.error-message {
+  color: $color-error;
+  font-weight: $font-weight-medium;
+}
+
+.video-feed-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: $spacing-lg $spacing-md;
+}
+
+.feed-video-card {
+  min-width: 0;
+}
+
+.feed-video-frame {
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: $border-radius-md;
+  background: $color-secondary-dark;
+  box-shadow: $shadow-sm;
+}
+
+.feed-video-frame video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.feed-video-body {
+  padding-top: $spacing-sm;
+}
+
+.feed-video-body h2 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  min-height: 2.5rem;
+  margin: 0 0 $spacing-xs;
+  color: $color-text-primary;
+  font-size: $font-size-base;
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-tight;
+  overflow-wrap: anywhere;
+}
+
+.teacher-name,
+.video-date {
+  margin: 0;
+  color: $color-text-muted;
+  font-size: $font-size-small;
+  line-height: $line-height-tight;
+  overflow-wrap: anywhere;
+}
+
+.teacher-name {
+  color: $color-text-primary;
+  font-weight: $font-weight-medium;
+}
+
+.video-date {
+  margin-top: $spacing-xs;
+  font-size: $font-size-xs;
+}
+
+@media (max-width: $breakpoint-xl) {
+  .video-feed-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: $breakpoint-lg) {
+  .video-feed-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: $breakpoint-md) {
+  .home-videos {
+    margin: $spacing-lg auto;
+  }
+
+  .home-videos-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .home-videos-header h1 {
+    font-size: $font-size-h4;
+  }
+
+  .video-feed-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: $spacing-md;
+  }
+}
+
+@media (max-width: $breakpoint-xs) {
+  .video-feed-grid {
+    grid-template-columns: 1fr;
+  }
+}
