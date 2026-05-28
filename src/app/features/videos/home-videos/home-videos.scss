@@ -89,6 +89,7 @@
 }
 
 .teacher-name,
+.video-description,
 .video-date {
   margin: 0;
   color: $color-text-muted;
@@ -100,6 +101,14 @@
 .teacher-name {
   color: $color-text-primary;
   font-weight: $font-weight-medium;
+}
+
+.video-description {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  margin-top: $spacing-xs;
 }
 
 .video-date {

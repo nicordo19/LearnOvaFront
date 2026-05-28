@@ -4,6 +4,11 @@ import { catchError, Observable, throwError } from 'rxjs';
 import { UserVideo } from '../app/features/videos/user-video';
 import { VideoUploadResponse } from '../app/features/videos/video-upload-response';
 
+export interface VideoUpdateRequest {
+  title: string;
+  description?: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -54,6 +59,12 @@ export class VideoService {
 
   deleteVideo(videoId: string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${videoId}`, {
+      withCredentials: true,
+    });
+  }
+
+  updateVideo(videoId: string, payload: VideoUpdateRequest): Observable<UserVideo> {
+    return this.http.put<UserVideo>(`${this.apiUrl}/${videoId}`, payload, {
       withCredentials: true,
     });
   }
