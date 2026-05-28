@@ -1,13 +1,15 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
+import { UserVideo } from '../app/features/videos/user-video';
 import { VideoUploadResponse } from '../app/features/videos/video-upload-response';
 
 @Injectable({
   providedIn: 'root',
 })
 export class VideoService {
-  private readonly uploadUrl = 'http://localhost:8080/video/upload';
+  private readonly apiUrl = 'http://localhost:8080/api/videos';
+  private readonly uploadUrl = 'http://localhost:8080/api/videos/upload';
   private readonly allowedTypes = ['video/mp4', 'video/quicktime', 'video/webm'];
   private readonly maxVideoSizeBytes = 250 * 1024 * 2024; // 450 MB
 
@@ -36,6 +38,18 @@ export class VideoService {
 
   getMaxVideoSizeMb(): number {
     return Math.round(this.maxVideoSizeBytes / 1024 / 1024);
+  }
+
+  getMyVideos(): Observable<UserVideo[]> {
+    return this.http.get<UserVideo[]>(`${this.apiUrl}/my-videos`, {
+      withCredentials: true,
+    });
+  }
+
+  deleteVideo(videoId: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${videoId}`, {
+      withCredentials: true,
+    });
   }
 
   private validateFile(file: File): string | null {

@@ -40,7 +40,7 @@
       </div>
 
       <div class="profile-link" *ngIf="isLoggedIn$ | async">
-        <a [routerLink]="['/profile']" class="btn-profile">Profil</a>
+        <a href="#" class="btn-profile" (click)="goToProfile($event)">Profil</a>
       </div>
 
       <div class="auth-buttons m-2" *ngIf="isLoggedIn$ | async">

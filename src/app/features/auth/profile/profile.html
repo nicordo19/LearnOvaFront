@@ -45,4 +45,46 @@
 
     <a class="action-button" routerLink="/videos/upload" *ngIf="isProfessor">Ajouter une vidéo</a>
   </section>
+
+  <section class="profile-videos" *ngIf="!loading && !error">
+    <div class="profile-videos-header">
+      <div>
+        <h2>Mes vidéos</h2>
+        <p>{{ videos.length }} vidéo{{ videos.length > 1 ? 's' : '' }} publiée{{ videos.length > 1 ? 's' : '' }}</p>
+      </div>
+    </div>
+
+    <div *ngIf="loadingVideos" class="videos-loading">
+      <p>Chargement de vos vidéos...</p>
+    </div>
+
+    <div class="video-grid" *ngIf="!loadingVideos && videos.length > 0">
+      <article class="video-card" *ngFor="let video of videos">
+        <div class="video-frame">
+          <video
+            [src]="video.secureUrl ?? video.secure_url ?? video.url ?? video.publicUrl ?? video.fileUrl ?? video.videoUrl"
+            controls
+            muted
+          ></video>
+        </div>
+
+        <div class="video-card-body">
+          <h3>{{ video.title || 'Vidéo' }}</h3>
+
+          <div class="video-card-footer">
+            <p class="video-meta">{{ video.createdAt | date: 'dd/MM/yyyy' }}</p>
+            <button type="button" class="btn btn-sm btn-outline-danger" (click)="deleteVideo(video.id)">
+              Supprimer
+            </button>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div *ngIf="!loadingVideos && videos.length === 0" class="no-videos">
+      <p>Aucune vidéo enregistrée pour le moment.</p>
+    </div>
+
+    <div class="error-message" *ngIf="videoError">{{ videoError }}</div>
+  </section>
 </div>

@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
 import { AuthService } from '../../../../services/authService';
@@ -30,6 +31,7 @@ export class UploadVideoComponent implements OnDestroy {
   constructor(
     private videoService: VideoService,
     private authService: AuthService,
+    private router: Router,
   ) {
     this.authService.currentUser$.pipe(takeUntil(this.destroy$)).subscribe((user) => {
       this.isLoggedIn = !!user;
@@ -87,6 +89,8 @@ export class UploadVideoComponent implements OnDestroy {
         this.uploading = false;
         this.uploadSuccess = true;
         this.uploadedVideoUrl = response.secureUrl ?? response.url;
+        console.log('Upload réussi, response:', response);
+        this.router.navigate(['/profile'], { queryParams: { refresh: Date.now() } });
       },
       error: (error: Error) => {
         this.uploading = false;
