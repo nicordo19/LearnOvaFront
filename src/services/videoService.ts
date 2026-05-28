@@ -63,6 +63,28 @@ export class VideoService {
     });
   }
 
+  getLikedVideos(): Observable<UserVideo[]> {
+    return this.http.get<UserVideo[]>(`${this.apiUrl}/liked`, {
+      withCredentials: true,
+    });
+  }
+
+  likeVideo(videoId: string): Observable<UserVideo> {
+    return this.http.post<UserVideo>(
+      `${this.apiUrl}/${videoId}/like`,
+      {},
+      {
+        withCredentials: true,
+      },
+    );
+  }
+
+  unlikeVideo(videoId: string): Observable<UserVideo> {
+    return this.http.delete<UserVideo>(`${this.apiUrl}/${videoId}/like`, {
+      withCredentials: true,
+    });
+  }
+
   deleteVideo(videoId: string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${videoId}`, {
       withCredentials: true,

@@ -9,6 +9,9 @@ export interface UserVideo {
   videoUrl?: string;
   createdAt: string;
   description?: string;
+  ownerId?: string;
+  likedByCurrentUser?: boolean;
+  likesCount?: number;
   userFirstName?: string;
   userLastName?: string;
   userFirstname?: string;

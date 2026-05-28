@@ -21,8 +21,11 @@ export class Profile implements OnInit, OnDestroy {
   error: string | null = null;
   isProfessor = false;
   videos: UserVideo[] = [];
+  likedVideos: UserVideo[] = [];
   loadingVideos = false;
+  loadingLikedVideos = false;
   videoError: string | null = null;
+  likedVideoError: string | null = null;
   editingVideoId: string | null = null;
   editTitle = '';
   editDescription = '';
@@ -46,7 +49,10 @@ export class Profile implements OnInit, OnDestroy {
       if (params && params['refresh']) {
         console.log('Refresh param détecté, rechargement des vidéos');
         if (this.user) {
-          this.loadUserVideos();
+          if (this.isProfessor) {
+            this.loadUserVideos();
+          }
+          this.loadLikedVideos();
         }
       }
     });
@@ -58,7 +64,10 @@ export class Profile implements OnInit, OnDestroy {
         this.loading = false;
         this.authService.setCurrentUser(data);
         this.isProfessor = this.authService.isProfessor();
-        this.loadUserVideos();
+        if (this.isProfessor) {
+          this.loadUserVideos();
+        }
+        this.loadLikedVideos();
         this.cdr.markForCheck();
       },
       error: (err) => {
@@ -68,6 +77,7 @@ export class Profile implements OnInit, OnDestroy {
         this.authService.setCurrentUser(null);
         this.isProfessor = false;
         this.videos = [];
+        this.likedVideos = [];
         this.cdr.markForCheck();
       },
     });
@@ -89,6 +99,25 @@ export class Profile implements OnInit, OnDestroy {
         console.error('Erreur lors de la récupération des vidéos :', err);
         this.videoError = 'Impossible de charger les vidéos.';
         this.loadingVideos = false;
+        this.cdr.markForCheck();
+      },
+    });
+  }
+
+  loadLikedVideos(): void {
+    this.loadingLikedVideos = true;
+    this.likedVideoError = null;
+
+    this.videoService.getLikedVideos().subscribe({
+      next: (videos) => {
+        this.likedVideos = videos;
+        this.loadingLikedVideos = false;
+        this.cdr.markForCheck();
+      },
+      error: (err) => {
+        console.error('Erreur lors de la récupération des vidéos likées :', err);
+        this.likedVideoError = 'Impossible de charger les vidéos likées.';
+        this.loadingLikedVideos = false;
         this.cdr.markForCheck();
       },
     });
@@ -163,5 +192,12 @@ export class Profile implements OnInit, OnDestroy {
         this.cdr.markForCheck();
       },
     });
+  }
+
+  getUploaderName(video: UserVideo): string {
+    const firstName = video.userFirstName ?? video.userFirstname ?? video.userfirstname;
+    const lastName = video.userLastName ?? video.userLastname ?? video.userlastname;
+
+    return [firstName, lastName].filter(Boolean).join(' ') || 'Professeur NOVA';
   }
 }

@@ -275,6 +275,18 @@
   font-weight: $font-weight-semibold;
 }
 
+.liked-badge {
+  flex: 0 0 auto;
+  align-self: flex-start;
+  border-radius: 999px;
+  padding: $spacing-xs $spacing-sm;
+  background: rgba($color-error, 0.08);
+  color: $color-error;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  white-space: nowrap;
+}
+
 @media (max-width: $breakpoint-md) {
   .profile-hero-head {
     align-items: flex-start;
