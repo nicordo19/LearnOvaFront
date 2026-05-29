@@ -1,0 +1,21 @@
+<article class="video-card">
+  <a class="video-link" [routerLink]="['/videos', video.id]">
+    <div class="video-frame">
+      <video *ngIf="getVideoSource(video) as videoSource" [src]="videoSource" muted preload="metadata"></video>
+    </div>
+
+    <div class="video-body">
+      <h2>{{ video.title || titleFallback }}</h2>
+      <p class="teacher-name" *ngIf="showUploader">{{ getUploaderName(video) }}</p>
+      <p class="video-description">{{ video.description || '' }}</p>
+
+      <div class="video-footer">
+        <p class="video-date">{{ video.createdAt | date: 'dd/MM/yyyy' }}</p>
+        <span class="liked-badge" [class.liked]="video.likedByCurrentUser" *ngIf="showLikes">
+          <span aria-hidden="true">{{ video.likedByCurrentUser ? '♥' : '♡' }}</span>
+          {{ video.likesCount || 0 }} like{{ (video.likesCount || 0) > 1 ? 's' : '' }}
+        </span>
+      </div>
+    </div>
+  </a>
+</article>

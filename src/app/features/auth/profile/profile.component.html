@@ -1,0 +1,76 @@
+<div class="profile-container" *ngIf="loading">
+  <p>Chargement du profil...</p>
+</div>
+
+<div class="profile-container" *ngIf="error">
+  <p class="error-message">{{ error }}</p>
+</div>
+
+<div class="profile-page" *ngIf="user && !loading && !error">
+  <section class="profile-hero">
+    <div class="profile-hero-head">
+      <div class="avatar">{{ user.firstName.charAt(0) }}{{ user.lastName.charAt(0) }}</div>
+
+      <div class="hero-title-block">
+        <h1>{{ user.firstName }} {{ user.lastName }}</h1>
+        <p class="subtitle">Bienvenue dans ton espace NOVA</p>
+      </div>
+    </div>
+
+    <div class="identity-grid">
+      <div class="identity-item">
+        <span class="label">Email</span>
+        <span class="value">{{ user.email }}</span>
+      </div>
+
+      <div class="identity-item">
+        <span class="label">Profession</span>
+        <span class="value">{{ user.profession }}</span>
+      </div>
+
+      <div class="identity-item">
+        <span class="label">Role</span>
+        <span class="value badge">{{ user.role || 'Non defini' }}</span>
+      </div>
+
+      <div class="identity-item">
+        <span class="label">Inscrit le</span>
+        <span class="value">{{ user.createdAt | date: 'dd/MM/yyyy' }}</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="profile-actions" *ngIf="isProfessor">
+    <a class="action-button" routerLink="/videos/upload">Ajouter une vidéo</a>
+  </section>
+
+  <section class="profile-video-tabs" [class.single-tab]="!isProfessor" aria-label="Sections vidéo du profil">
+    <button
+      *ngIf="isProfessor"
+      type="button"
+      class="video-tab-button"
+      [class.active]="activeVideoTab === 'uploaded'"
+      [attr.aria-pressed]="activeVideoTab === 'uploaded'"
+      (click)="showVideoTab('uploaded')"
+    >
+      Mes vidéos
+    </button>
+
+    <button
+      type="button"
+      class="video-tab-button"
+      [class.active]="activeVideoTab === 'liked'"
+      [attr.aria-pressed]="activeVideoTab === 'liked'"
+      (click)="showVideoTab('liked')"
+    >
+      Vidéos likées
+    </button>
+  </section>
+
+  <app-uploaded-videos-section
+    *ngIf="isProfessor"
+    [hidden]="activeVideoTab !== 'uploaded'"
+  ></app-uploaded-videos-section>
+
+  <app-liked-videos-section [hidden]="activeVideoTab !== 'liked'"></app-liked-videos-section>
+</div>

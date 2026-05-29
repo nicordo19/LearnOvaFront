@@ -1,0 +1,173 @@
+@import '../../../../styles/variables';
+
+.video-detail {
+  max-width: $container-max-width;
+  margin: $spacing-xl auto;
+  padding: 0 $spacing-md;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-xs;
+  margin-bottom: $spacing-md;
+  color: $color-text-primary;
+  font-weight: $font-weight-semibold;
+  text-decoration: none;
+}
+
+.back-link span {
+  font-size: $font-size-h5;
+  line-height: 1;
+}
+
+.back-link:hover {
+  color: $color-primary-start;
+}
+
+.detail-state {
+  padding: $spacing-xl;
+  border: $border-width solid $border-color-light;
+  border-radius: $border-radius-md;
+  background: $color-bg-white;
+  color: $color-text-muted;
+  text-align: center;
+  box-shadow: $shadow-xs;
+}
+
+.detail-state p {
+  margin: 0;
+}
+
+.error-message {
+  color: $color-error;
+  font-weight: $font-weight-medium;
+}
+
+.video-watch {
+  display: grid;
+  gap: $spacing-lg;
+}
+
+.watch-player {
+  overflow: hidden;
+  border-radius: $border-radius-md;
+  background: $color-secondary-dark;
+  box-shadow: $shadow-md;
+}
+
+.watch-player video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: $color-secondary-dark;
+}
+
+.watch-content {
+  display: grid;
+  gap: $spacing-sm;
+}
+
+.watch-content h1 {
+  margin: 0;
+  color: $color-text-primary;
+  font-size: $font-size-h3;
+  font-weight: $font-weight-bold;
+  line-height: $line-height-tight;
+  overflow-wrap: anywhere;
+}
+
+.watch-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-sm $spacing-md;
+  color: $color-text-muted;
+  font-size: $font-size-small;
+  font-weight: $font-weight-medium;
+}
+
+.watch-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: $spacing-sm;
+  margin-top: $spacing-xs;
+}
+
+.like-button,
+.login-like-link {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-xs;
+  border: $border-width solid $border-color;
+  border-radius: 999px;
+  padding: $spacing-sm $spacing-md;
+  background: $color-bg-white;
+  color: $color-text-primary;
+  font-weight: $font-weight-semibold;
+  line-height: 1;
+  text-decoration: none;
+  transition:
+    border-color $transition-fast $transition-ease,
+    color $transition-fast $transition-ease,
+    background $transition-fast $transition-ease;
+}
+
+.like-button:hover:not(:disabled),
+.login-like-link:hover {
+  border-color: $color-primary-start;
+  color: $color-primary-start;
+}
+
+.like-button.active {
+  border-color: $color-error;
+  background: rgba($color-error, 0.08);
+  color: $color-error;
+}
+
+.like-button:disabled {
+  cursor: not-allowed;
+  opacity: $opacity-disabled;
+}
+
+.like-button span {
+  font-size: $font-size-h5;
+}
+
+.like-count,
+.like-helper,
+.like-error {
+  color: $color-text-muted;
+  font-size: $font-size-small;
+}
+
+.like-helper,
+.like-error {
+  margin: 0;
+}
+
+.like-error {
+  color: $color-error;
+  font-weight: $font-weight-medium;
+}
+
+.watch-description {
+  margin: $spacing-sm 0 0;
+  padding: $spacing-md;
+  border-radius: $border-radius-md;
+  background: $color-bg-light;
+  color: $color-text-primary;
+  line-height: $line-height-base;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: $breakpoint-md) {
+  .video-detail {
+    margin: $spacing-lg auto;
+  }
+
+  .watch-content h1 {
+    font-size: $font-size-h4;
+  }
+}

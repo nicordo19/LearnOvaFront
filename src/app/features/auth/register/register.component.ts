@@ -1,0 +1,75 @@
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
+import { AuthService } from './../../../../services/authService';
+
+@Component({
+  selector: 'app-register-component',
+  imports: [CommonModule, RouterLink, FormsModule],
+  templateUrl: './register.component.html',
+  styleUrl: './register.component.scss',
+})
+export class RegisterComponent {
+  etudiant: boolean = false;
+  professeur: boolean = false;
+  firstName: string = '';
+  lastName: string = '';
+  email: string = '';
+
+  profession: string = '';
+  password: string = '';
+  userType: string = '';
+
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+  ) {}
+  selectRole(role: string) {
+    if (role === 'etudiant') {
+      this.etudiant = true;
+      this.professeur = false;
+    }
+
+    if (role === 'professeur') {
+      this.professeur = true;
+      this.etudiant = false;
+    }
+  }
+
+  onSubmit() {
+    if (
+      this.userType === '' ||
+      this.email.trim() === '' ||
+      this.password.trim() === '' ||
+      this.profession.trim() === ''
+    ) {
+      alert('Veuillez remplir tous les champs requis.');
+      return;
+    }
+
+    this.etudiant = this.userType === 'etudiant';
+    this.professeur = this.userType === 'professeur';
+
+    const formData = {
+      etudiant: this.etudiant,
+      professeur: this.professeur,
+      email: this.email,
+      firstName: this.firstName,
+      lastName: this.lastName,
+      profession: this.profession,
+      password: this.password,
+    };
+
+    console.log('Inscription soumise', formData);
+    this.authService.register(formData).subscribe({
+      next: (response) => {
+        console.log('Inscription réussie', response);
+        this.router.navigate(['/login']);
+      },
+      error: (error) => {
+        console.error("Erreur lors de l'inscription", error);
+      },
+    });
+  }
+}

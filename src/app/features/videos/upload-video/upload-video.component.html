@@ -1,0 +1,85 @@
+<section class="upload-video-card">
+  <header class="upload-header">
+    <h1>Upload de vidéo pédagogique</h1>
+    <p>Seuls les utilisateurs ayant le rôle <strong>ROLE_PROF</strong> peuvent uploader.</p>
+  </header>
+
+  <div class="upload-state" *ngIf="!isLoggedIn">
+    <p class="warning">Connectez-vous pour accéder à l’upload.</p>
+  </div>
+
+  <div class="upload-state" *ngIf="isLoggedIn && !isProfessor">
+    <p class="warning">Votre compte n’a pas le rôle requis pour uploader des vidéos.</p>
+  </div>
+
+  <form class="upload-form" (ngSubmit)="onUploadVideo()" *ngIf="isLoggedIn && isProfessor">
+    <div class="video-fields">
+      <label for="videoTitle">
+        <span>Titre de la vidéo</span>
+        <input
+          id="videoTitle"
+          name="title"
+          type="text"
+          [(ngModel)]="title"
+          maxlength="120"
+          placeholder="Ex : Introduction aux bases d’Angular"
+        />
+      </label>
+
+      <label for="videoDescription">
+        <span>Description</span>
+        <textarea
+          id="videoDescription"
+          name="description"
+          rows="4"
+          [(ngModel)]="description"
+          maxlength="1000"
+          placeholder="Présente le contenu du cours, les objectifs ou les prérequis."
+        ></textarea>
+      </label>
+    </div>
+
+    <label class="file-input-label" for="videoFile">
+      <span>Sélectionner une vidéo</span>
+      <input
+        id="videoFile"
+        type="file"
+        accept="video/mp4,video/quicktime,video/webm"
+        (change)="onFileSelected($event)"
+      />
+    </label>
+
+    <div class="file-details" *ngIf="selectedFile">
+      <h2>Informations du fichier</h2>
+      <ul>
+        <li><strong>Nom :</strong> {{ selectedFileName }}</li>
+        <li><strong>Type :</strong> {{ selectedFileType }}</li>
+        <li><strong>Taille :</strong> {{ selectedFileSize }}</li>
+      </ul>
+    </div>
+
+    <div class="preview-box" *ngIf="previewUrl">
+      <h2>Prévisualisation locale</h2>
+      <video [src]="previewUrl" controls muted></video>
+    </div>
+
+    <div class="button-row">
+      <button
+        type="submit"
+        class="secondary-button"
+        [disabled]="uploading || !selectedFile || !isProfessor"
+      >
+        {{ uploading ? 'Upload en cours...' : 'Uploader la vidéo' }}
+      </button>
+    </div>
+
+    <div class="status-message error" *ngIf="uploadError">{{ uploadError }}</div>
+    <div class="status-message success" *ngIf="uploadSuccess">Upload réussi !</div>
+
+    <div class="uploaded-video" *ngIf="uploadedVideoUrl">
+      <h2>Vidéo disponible</h2>
+      <a [href]="uploadedVideoUrl" target="_blank" rel="noreferrer">{{ uploadedVideoUrl }}</a>
+      <video [src]="uploadedVideoUrl" controls muted></video>
+    </div>
+  </form>
+</section>

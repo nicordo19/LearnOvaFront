@@ -1,0 +1,61 @@
+<section class="video-detail">
+  <a class="back-link" routerLink="/" aria-label="Retour aux vidéos">
+    <span aria-hidden="true">←</span>
+    Retour aux vidéos
+  </a>
+
+  <div *ngIf="loading" class="detail-state">
+    <p>Chargement de la vidéo...</p>
+  </div>
+
+  <div *ngIf="error && !loading" class="detail-state error-message">
+    <p>{{ error }}</p>
+  </div>
+
+  <article class="video-watch" *ngIf="video && !loading && !error">
+    <div class="watch-player">
+      <video
+        *ngIf="getVideoSource(video) as videoSource"
+        [src]="videoSource"
+        controls
+        autoplay
+        playsinline
+      ></video>
+    </div>
+
+    <div class="watch-content">
+      <h1>{{ video.title || 'Cours vidéo' }}</h1>
+
+      <div class="watch-meta">
+        <span>{{ getUploaderName(video) }}</span>
+        <span>{{ video.createdAt | date: 'dd/MM/yyyy' }}</span>
+      </div>
+
+      <div class="watch-actions">
+        <button
+          type="button"
+          class="like-button"
+          [class.active]="video.likedByCurrentUser"
+          [disabled]="updatingLike || isOwnVideo(video)"
+          *ngIf="currentUser"
+          (click)="toggleLike(video)"
+        >
+          <span aria-hidden="true">{{ video.likedByCurrentUser ? '♥' : '♡' }}</span>
+          {{ video.likedByCurrentUser ? 'Aimée' : 'J’aime' }}
+        </button>
+
+        <a class="login-like-link" routerLink="/login" *ngIf="!currentUser">Connecte-toi pour liker</a>
+
+        <span class="like-count">{{ video.likesCount || 0 }} like{{ (video.likesCount || 0) > 1 ? 's' : '' }}</span>
+      </div>
+
+      <p class="like-helper" *ngIf="currentUser && isOwnVideo(video)">
+        Tu ne peux pas liker ta propre vidéo.
+      </p>
+
+      <p class="like-error" *ngIf="likeError">{{ likeError }}</p>
+
+      <p class="watch-description" *ngIf="video.description">{{ video.description }}</p>
+    </div>
+  </article>
+</section>
