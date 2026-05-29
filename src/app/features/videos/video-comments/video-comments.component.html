@@ -1,0 +1,58 @@
+<section class="video-comments">
+  <header class="comments-header">
+    <h2>Commentaires</h2>
+    <span>{{ comments.length }} commentaire{{ comments.length > 1 ? 's' : '' }}</span>
+  </header>
+
+  <form class="comment-form" *ngIf="currentUser" (ngSubmit)="addComment()">
+    <label for="videoComment">Ajouter un commentaire</label>
+    <textarea
+      id="videoComment"
+      name="videoComment"
+      rows="3"
+      [(ngModel)]="newComment"
+      [disabled]="savingComment"
+      placeholder="Pose une question ou réponds au cours."
+    ></textarea>
+
+    <div class="comment-form-actions">
+      <button type="submit" class="comment-submit" [disabled]="savingComment || !newComment.trim()">
+        {{ savingComment ? 'Envoi...' : 'Commenter' }}
+      </button>
+    </div>
+  </form>
+
+  <p class="comment-login" *ngIf="!currentUser">
+    <a routerLink="/login">Connecte-toi</a> pour ajouter un commentaire.
+  </p>
+
+  <p class="comment-error" *ngIf="commentError">{{ commentError }}</p>
+
+  <div class="comments-state" *ngIf="loadingComments">
+    <p>Chargement des commentaires...</p>
+  </div>
+
+  <div class="comments-list" *ngIf="!loadingComments && comments.length > 0">
+    <article class="comment-item" *ngFor="let comment of comments">
+      <div class="comment-avatar">
+        {{ (comment.authorFirstName || 'U').charAt(0) }}{{ (comment.authorLastName || '').charAt(0) }}
+      </div>
+
+      <div class="comment-content">
+        <div class="comment-meta">
+          <strong>{{ getAuthorName(comment) }}</strong>
+          <span class="role-badge" [class.teacher]="isProfessorComment(comment)">
+            {{ getAuthorRoleLabel(comment) }}
+          </span>
+          <span>{{ comment.createdAt | date: 'dd/MM/yyyy HH:mm' }}</span>
+        </div>
+
+        <p>{{ comment.content }}</p>
+      </div>
+    </article>
+  </div>
+
+  <div class="comments-state" *ngIf="!loadingComments && comments.length === 0">
+    <p>Aucun commentaire pour le moment.</p>
+  </div>
+</section>

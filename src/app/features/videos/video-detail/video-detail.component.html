@@ -56,6 +56,8 @@
       <p class="like-error" *ngIf="likeError">{{ likeError }}</p>
 
       <p class="watch-description" *ngIf="video.description">{{ video.description }}</p>
+
+      <app-video-comments [videoId]="video.id"></app-video-comments>
     </div>
   </article>
 </section>

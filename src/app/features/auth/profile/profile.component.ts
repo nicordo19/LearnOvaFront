@@ -66,6 +66,14 @@ export class Profile implements OnInit, OnDestroy {
     this.activeVideoTab = tab;
   }
 
+  getRoleLabel(role: string | null): string {
+    if (!role) {
+      return 'Non défini';
+    }
+
+    return role.toUpperCase().includes('PROF') ? 'Professeur' : 'Étudiant';
+  }
+
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();

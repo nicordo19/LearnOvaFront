@@ -1,0 +1,170 @@
+@import '../../../../styles/variables';
+
+.video-comments {
+  display: grid;
+  gap: $spacing-md;
+  margin-top: $spacing-lg;
+  padding-top: $spacing-lg;
+  border-top: $border-width solid $border-color-light;
+}
+
+.comments-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $spacing-md;
+}
+
+.comments-header h2 {
+  margin: 0;
+  color: $color-text-primary;
+  font-size: $font-size-h5;
+  font-weight: $font-weight-bold;
+}
+
+.comments-header span,
+.comment-login,
+.comments-state,
+.comment-meta {
+  color: $color-text-muted;
+  font-size: $font-size-small;
+}
+
+.comment-form {
+  display: grid;
+  gap: $spacing-sm;
+  padding: $spacing-md;
+  border: $border-width solid $border-color-light;
+  border-radius: $border-radius-md;
+  background: $color-bg-white;
+  box-shadow: $shadow-xs;
+}
+
+.comment-form label {
+  color: $color-text-primary;
+  font-weight: $font-weight-semibold;
+}
+
+.comment-form textarea {
+  width: 100%;
+  resize: vertical;
+  border: $border-width solid $border-color;
+  border-radius: $border-radius-md;
+  color: $color-text-primary;
+  font: inherit;
+  line-height: $line-height-base;
+  padding: $spacing-sm $spacing-md;
+}
+
+.comment-form textarea:focus {
+  border-color: $color-primary-start;
+  box-shadow: 0 0 0 3px rgba($color-primary-start, 0.16);
+  outline: none;
+}
+
+.comment-form-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.comment-submit {
+  border: 0;
+  border-radius: 999px;
+  background: $color-primary-gradient;
+  color: $color-text-light;
+  cursor: pointer;
+  font-weight: $font-weight-semibold;
+  padding: $spacing-sm $spacing-md;
+}
+
+.comment-submit:disabled {
+  cursor: not-allowed;
+  opacity: $opacity-disabled;
+}
+
+.comment-login,
+.comments-state {
+  margin: 0;
+  padding: $spacing-md;
+  border-radius: $border-radius-md;
+  background: $color-bg-light;
+}
+
+.comment-login a {
+  color: $color-primary-start;
+  font-weight: $font-weight-semibold;
+  text-decoration: none;
+}
+
+.comment-error {
+  margin: 0;
+  color: $color-error;
+  font-size: $font-size-small;
+  font-weight: $font-weight-medium;
+}
+
+.comments-list {
+  display: grid;
+  gap: $spacing-md;
+}
+
+.comment-item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: $spacing-sm;
+}
+
+.comment-avatar {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: $border-radius-full;
+  background: $color-content-bg-light;
+  color: $color-text-primary;
+  font-size: $font-size-small;
+  font-weight: $font-weight-bold;
+}
+
+.comment-content {
+  min-width: 0;
+}
+
+.comment-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: $spacing-xs $spacing-sm;
+}
+
+.comment-meta strong {
+  color: $color-text-primary;
+}
+
+.role-badge {
+  border-radius: 999px;
+  background: $color-bg-light;
+  color: $color-text-primary;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  padding: 0.1rem $spacing-sm;
+}
+
+.role-badge.teacher {
+  background: rgba($color-accent-1, 0.35);
+}
+
+.comment-content p {
+  margin: $spacing-xs 0 0;
+  color: $color-text-primary;
+  line-height: $line-height-base;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: $breakpoint-md) {
+  .comments-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

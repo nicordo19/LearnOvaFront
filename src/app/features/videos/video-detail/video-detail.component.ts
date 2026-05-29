@@ -6,12 +6,13 @@ import { AuthService } from '../../../../services/authService';
 import { VideoService } from '../../../../services/videoService';
 import { UserProfileResponse } from '../../auth/profile/userProfileResponse';
 import { UserVideo } from '../user-video';
+import { VideoComments } from '../video-comments/video-comments.component';
 import { getUploaderName, getVideoSource } from '../video-utils';
 
 @Component({
   standalone: true,
   selector: 'app-video-detail',
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, VideoComments],
   templateUrl: './video-detail.component.html',
   styleUrl: './video-detail.component.scss',
 })
