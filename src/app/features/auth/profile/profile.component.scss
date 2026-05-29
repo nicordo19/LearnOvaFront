@@ -88,12 +88,14 @@
   color: $color-text-dark;
 }
 
-.profile-next-step-placeholder {
+.profile-actions {
+  display: flex;
+  justify-content: flex-end;
   background: $color-bg-white;
-  border: 1px dashed $border-color;
+  border: $border-width solid $border-color-light;
   border-radius: $border-radius-md;
   padding: 1rem;
-  color: $color-text-muted;
+  box-shadow: $shadow-xs;
 }
 
 .profile-videos {
