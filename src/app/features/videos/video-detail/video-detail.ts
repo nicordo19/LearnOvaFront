@@ -6,6 +6,7 @@ import { AuthService } from '../../../../services/authService';
 import { VideoService } from '../../../../services/videoService';
 import { UserProfileResponse } from '../../auth/profile/userProfileResponse';
 import { UserVideo } from '../user-video';
+import { getUploaderName, getVideoSource } from '../video-utils';
 
 @Component({
   standalone: true,
@@ -21,6 +22,8 @@ export class VideoDetail implements OnInit, OnDestroy {
   error: string | null = null;
   likeError: string | null = null;
   updatingLike = false;
+  readonly getVideoSource = getVideoSource;
+  readonly getUploaderName = getUploaderName;
   private readonly destroy$ = new Subject<void>();
 
   constructor(
@@ -65,25 +68,6 @@ export class VideoDetail implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
-  }
-
-  getVideoSource(video: UserVideo): string | null {
-    return (
-      video.secureUrl ??
-      video.secure_url ??
-      video.url ??
-      video.publicUrl ??
-      video.fileUrl ??
-      video.videoUrl ??
-      null
-    );
-  }
-
-  getUploaderName(video: UserVideo): string {
-    const firstName = video.userFirstName ?? video.userFirstname ?? video.userfirstname;
-    const lastName = video.userLastName ?? video.userLastname ?? video.userlastname;
-
-    return [firstName, lastName].filter(Boolean).join(' ') || 'Professeur NOVA';
   }
 
   isOwnVideo(video: UserVideo): boolean {

@@ -4,6 +4,7 @@ import { RouterLink } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { VideoService } from '../../../../services/videoService';
 import { UserVideo } from '../user-video';
+import { getUploaderName, getVideoSource } from '../video-utils';
 
 @Component({
   standalone: true,
@@ -16,6 +17,8 @@ export class HomeVideos implements OnInit, OnDestroy {
   videos: UserVideo[] = [];
   loading = true;
   error: string | null = null;
+  readonly getVideoSource = getVideoSource;
+  readonly getUploaderName = getUploaderName;
   private readonly destroy$ = new Subject<void>();
 
   constructor(
@@ -47,22 +50,4 @@ export class HomeVideos implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  getVideoSource(video: UserVideo): string | null {
-    return (
-      video.secureUrl ??
-      video.secure_url ??
-      video.url ??
-      video.publicUrl ??
-      video.fileUrl ??
-      video.videoUrl ??
-      null
-    );
-  }
-
-  getUploaderName(video: UserVideo): string {
-    const firstName = video.userFirstName ?? video.userFirstname ?? video.userfirstname;
-    const lastName = video.userLastName ?? video.userLastname ?? video.userlastname;
-
-    return [firstName, lastName].filter(Boolean).join(' ') || 'Professeur NOVA';
-  }
 }

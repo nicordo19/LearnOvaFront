@@ -7,6 +7,7 @@ import { AuthService } from '../../../../services/authService';
 import { UserService } from '../../../../services/userService';
 import { VideoService } from '../../../../services/videoService';
 import { UserVideo } from '../../videos/user-video';
+import { getUploaderName } from '../../videos/video-utils';
 import { UserProfileResponse } from './userProfileResponse';
 
 @Component({
@@ -30,6 +31,7 @@ export class Profile implements OnInit, OnDestroy {
   editTitle = '';
   editDescription = '';
   savingVideoId: string | null = null;
+  readonly getUploaderName = getUploaderName;
   private readonly destroy$ = new Subject<void>();
 
   constructor(
@@ -194,10 +196,4 @@ export class Profile implements OnInit, OnDestroy {
     });
   }
 
-  getUploaderName(video: UserVideo): string {
-    const firstName = video.userFirstName ?? video.userFirstname ?? video.userfirstname;
-    const lastName = video.userLastName ?? video.userLastname ?? video.userlastname;
-
-    return [firstName, lastName].filter(Boolean).join(' ') || 'Professeur NOVA';
-  }
 }
