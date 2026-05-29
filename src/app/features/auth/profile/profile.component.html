@@ -44,7 +44,33 @@
     <a class="action-button" routerLink="/videos/upload">Ajouter une vidéo</a>
   </section>
 
-  <app-uploaded-videos-section *ngIf="isProfessor"></app-uploaded-videos-section>
+  <section class="profile-video-tabs" [class.single-tab]="!isProfessor" aria-label="Sections vidéo du profil">
+    <button
+      *ngIf="isProfessor"
+      type="button"
+      class="video-tab-button"
+      [class.active]="activeVideoTab === 'uploaded'"
+      [attr.aria-pressed]="activeVideoTab === 'uploaded'"
+      (click)="showVideoTab('uploaded')"
+    >
+      Mes vidéos
+    </button>
 
-  <app-liked-videos-section></app-liked-videos-section>
+    <button
+      type="button"
+      class="video-tab-button"
+      [class.active]="activeVideoTab === 'liked'"
+      [attr.aria-pressed]="activeVideoTab === 'liked'"
+      (click)="showVideoTab('liked')"
+    >
+      Vidéos likées
+    </button>
+  </section>
+
+  <app-uploaded-videos-section
+    *ngIf="isProfessor"
+    [hidden]="activeVideoTab !== 'uploaded'"
+  ></app-uploaded-videos-section>
+
+  <app-liked-videos-section [hidden]="activeVideoTab !== 'liked'"></app-liked-videos-section>
 </div>

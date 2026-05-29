@@ -98,6 +98,51 @@
   box-shadow: $shadow-xs;
 }
 
+.profile-video-tabs {
+  display: inline-flex;
+  width: fit-content;
+  gap: $spacing-xs;
+  padding: $spacing-xs;
+  border: $border-width solid $border-color-light;
+  border-radius: $border-radius-md;
+  background: $color-bg-white;
+  box-shadow: $shadow-xs;
+}
+
+.profile-video-tabs.single-tab {
+  display: none;
+}
+
+.video-tab-button {
+  border: 0;
+  border-radius: $border-radius-sm;
+  background: transparent;
+  color: $color-text-muted;
+  cursor: pointer;
+  font-weight: $font-weight-semibold;
+  padding: $spacing-sm $spacing-md;
+  transition:
+    background $transition-fast $transition-ease,
+    color $transition-fast $transition-ease,
+    box-shadow $transition-fast $transition-ease;
+}
+
+.video-tab-button:hover {
+  background: $color-bg-light;
+  color: $color-text-primary;
+}
+
+.video-tab-button:focus-visible {
+  outline: $border-width-thick solid $color-accent-1;
+  outline-offset: $spacing-xs;
+}
+
+.video-tab-button.active {
+  background: $color-primary-gradient;
+  color: $color-text-light;
+  box-shadow: $shadow-xs;
+}
+
 @media (max-width: $breakpoint-md) {
   .profile-hero-head {
     align-items: flex-start;
@@ -105,5 +150,15 @@
 
   .identity-grid {
     grid-template-columns: 1fr;
+  }
+
+  .profile-video-tabs {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .video-tab-button {
+    width: 100%;
   }
 }

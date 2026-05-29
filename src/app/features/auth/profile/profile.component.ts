@@ -8,6 +8,8 @@ import { LikedVideosSection } from './liked-videos-section/liked-videos-section.
 import { UploadedVideosSection } from './uploaded-videos-section/uploaded-videos-section.component';
 import { UserProfileResponse } from './userProfileResponse';
 
+type ProfileVideoTab = 'uploaded' | 'liked';
+
 @Component({
   selector: 'app-profile',
   imports: [CommonModule, RouterLink, UploadedVideosSection, LikedVideosSection],
@@ -19,6 +21,7 @@ export class Profile implements OnInit, OnDestroy {
   loading = true;
   error: string | null = null;
   isProfessor = false;
+  activeVideoTab: ProfileVideoTab = 'liked';
   private readonly destroy$ = new Subject<void>();
 
   constructor(
@@ -40,6 +43,7 @@ export class Profile implements OnInit, OnDestroy {
           this.loading = false;
           this.authService.setCurrentUser(data);
           this.isProfessor = this.authService.isProfessor();
+          this.activeVideoTab = this.isProfessor ? 'uploaded' : 'liked';
           this.cdr.markForCheck();
         },
         error: (err) => {
@@ -48,9 +52,18 @@ export class Profile implements OnInit, OnDestroy {
           this.loading = false;
           this.authService.setCurrentUser(null);
           this.isProfessor = false;
+          this.activeVideoTab = 'liked';
           this.cdr.markForCheck();
         },
       });
+  }
+
+  showVideoTab(tab: ProfileVideoTab): void {
+    if (this.activeVideoTab === tab) {
+      return;
+    }
+
+    this.activeVideoTab = tab;
   }
 
   ngOnDestroy(): void {
