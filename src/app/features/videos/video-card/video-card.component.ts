@@ -14,7 +14,7 @@ export class VideoCard {
   @Input({ required: true }) video!: UserVideo;
   @Input() titleFallback = 'Vidéo';
   @Input() showUploader = true;
-  @Input() showLikes = false;
+  @Input() showLikes = true;
 
   readonly getUploaderName = getUploaderName;
   readonly getVideoSource = getVideoSource;

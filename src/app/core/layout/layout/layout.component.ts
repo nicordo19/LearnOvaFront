@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { FooterComponent } from '../footer-component/footer.component';
-import { HeaderComponent } from '../header-component/header.component';
-import { NavbarComponent } from '../navbar-component/navbar.component';
+import { FooterComponent } from '../footer/footer.component';
+import { HeaderComponent } from '../header/header.component';
+import { NavbarComponent } from '../navbar/navbar.component';
 @Component({
   standalone: true,
   selector: 'app-layout-component',

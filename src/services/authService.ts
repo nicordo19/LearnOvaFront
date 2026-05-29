@@ -2,10 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { LoginRequest } from '../app/features/auth/login-component/login-request';
-import { LoginResponse } from '../app/features/auth/login-component/login-response';
+import { LoginRequest } from '../app/features/auth/login/login-request';
+import { LoginResponse } from '../app/features/auth/login/login-response';
 import { UserProfileResponse } from '../app/features/auth/profile/userProfileResponse';
-import { UserRegister } from '../app/features/auth/register-component/user-register';
+import { UserRegister } from '../app/features/auth/register/user-register';
 import { UserService } from './userService';
 
 @Injectable({

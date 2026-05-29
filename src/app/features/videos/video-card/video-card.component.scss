@@ -93,12 +93,20 @@
 }
 
 .liked-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-xs;
   flex: 0 0 auto;
   border-radius: 999px;
   padding: $spacing-xs $spacing-sm;
-  background: rgba($color-error, 0.08);
-  color: $color-error;
+  background: $color-bg-light;
+  color: $color-text-muted;
   font-size: $font-size-xs;
   font-weight: $font-weight-semibold;
   white-space: nowrap;
+}
+
+.liked-badge.liked {
+  background: rgba($color-error, 0.08);
+  color: $color-error;
 }
