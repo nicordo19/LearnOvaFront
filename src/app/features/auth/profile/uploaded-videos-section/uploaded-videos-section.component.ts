@@ -10,8 +10,8 @@ import { getVideoSource } from '../../../videos/video-utils';
 @Component({
   selector: 'app-uploaded-videos-section',
   imports: [CommonModule, FormsModule, RouterLink],
-  templateUrl: './uploaded-videos-section.html',
-  styleUrl: '../profile.scss',
+  templateUrl: './uploaded-videos-section.component.html',
+  styleUrl: '../profile.component.scss',
 })
 export class UploadedVideosSection implements OnInit, OnDestroy {
   uploadedVideos: UserVideo[] = [];

@@ -5,8 +5,8 @@ import { AuthService } from '../services/authService';
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet],
-  templateUrl: './app.html',
-  styleUrl: './app.scss',
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.scss',
 })
 export class App {
   protected readonly title = signal('frontend');

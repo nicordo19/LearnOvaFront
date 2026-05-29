@@ -12,8 +12,8 @@ import { getUploaderName, getVideoSource } from '../video-utils';
   standalone: true,
   selector: 'app-video-detail',
   imports: [CommonModule, RouterLink],
-  templateUrl: './video-detail.html',
-  styleUrl: './video-detail.scss',
+  templateUrl: './video-detail.component.html',
+  styleUrl: './video-detail.component.scss',
 })
 export class VideoDetail implements OnInit, OnDestroy {
   video: UserVideo | null = null;

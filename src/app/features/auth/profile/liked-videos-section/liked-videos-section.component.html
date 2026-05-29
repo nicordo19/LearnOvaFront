@@ -1,0 +1,26 @@
+<section class="profile-videos liked-videos">
+  <div class="profile-videos-header">
+    <div>
+      <h2>Vidéos likées</h2>
+      <p>
+        {{ likedVideos.length }} vidéo{{ likedVideos.length > 1 ? 's' : '' }} aimée{{
+          likedVideos.length > 1 ? 's' : ''
+        }}
+      </p>
+    </div>
+  </div>
+
+  <div *ngIf="loadingLikedVideos" class="videos-loading">
+    <p>Chargement de vos vidéos likées...</p>
+  </div>
+
+  <div class="video-grid" *ngIf="!loadingLikedVideos && likedVideos.length > 0">
+    <app-video-card *ngFor="let video of likedVideos" [video]="video" [showLikes]="true"></app-video-card>
+  </div>
+
+  <div *ngIf="!loadingLikedVideos && likedVideos.length === 0" class="no-videos">
+    <p>Aucune vidéo likée pour le moment.</p>
+  </div>
+
+  <div class="error-message" *ngIf="likedVideoError">{{ likedVideoError }}</div>
+</section>

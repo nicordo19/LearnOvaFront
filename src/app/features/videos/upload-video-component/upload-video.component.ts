@@ -11,8 +11,8 @@ import { VideoUploadResponse } from '../video-upload-response';
   standalone: true,
   selector: 'app-upload-video-component',
   imports: [CommonModule, FormsModule],
-  templateUrl: './upload-video-component.html',
-  styleUrl: './upload-video-component.scss',
+  templateUrl: './upload-video.component.html',
+  styleUrl: './upload-video.component.scss',
 })
 export class UploadVideoComponent implements OnDestroy {
   selectedFile: File | null = null;

@@ -4,15 +4,15 @@ import { RouterLink } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { AuthService } from '../../../../services/authService';
 import { UserService } from '../../../../services/userService';
-import { LikedVideosSection } from './liked-videos-section/liked-videos-section';
-import { UploadedVideosSection } from './uploaded-videos-section/uploaded-videos-section';
+import { LikedVideosSection } from './liked-videos-section/liked-videos-section.component';
+import { UploadedVideosSection } from './uploaded-videos-section/uploaded-videos-section.component';
 import { UserProfileResponse } from './userProfileResponse';
 
 @Component({
   selector: 'app-profile',
   imports: [CommonModule, RouterLink, UploadedVideosSection, LikedVideosSection],
-  templateUrl: './profile.html',
-  styleUrl: './profile.scss',
+  templateUrl: './profile.component.html',
+  styleUrl: './profile.component.scss',
 })
 export class Profile implements OnInit, OnDestroy {
   user: UserProfileResponse | null = null;

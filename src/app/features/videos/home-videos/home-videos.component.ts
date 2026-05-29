@@ -1,24 +1,21 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { VideoService } from '../../../../services/videoService';
 import { UserVideo } from '../user-video';
-import { getUploaderName, getVideoSource } from '../video-utils';
+import { VideoCard } from '../video-card/video-card.component';
 
 @Component({
   standalone: true,
   selector: 'app-home-videos',
-  imports: [CommonModule, RouterLink],
-  templateUrl: './home-videos.html',
-  styleUrl: './home-videos.scss',
+  imports: [CommonModule, VideoCard],
+  templateUrl: './home-videos.component.html',
+  styleUrl: './home-videos.component.scss',
 })
 export class HomeVideos implements OnInit, OnDestroy {
   videos: UserVideo[] = [];
   loading = true;
   error: string | null = null;
-  readonly getVideoSource = getVideoSource;
-  readonly getUploaderName = getUploaderName;
   private readonly destroy$ = new Subject<void>();
 
   constructor(

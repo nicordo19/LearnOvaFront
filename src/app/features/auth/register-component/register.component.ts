@@ -7,8 +7,8 @@ import { AuthService } from './../../../../services/authService';
 @Component({
   selector: 'app-register-component',
   imports: [CommonModule, RouterLink, FormsModule],
-  templateUrl: './register-component.html',
-  styleUrl: './register-component.scss',
+  templateUrl: './register.component.html',
+  styleUrl: './register.component.scss',
 })
 export class RegisterComponent {
   etudiant: boolean = false;

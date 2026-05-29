@@ -1,23 +1,21 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { VideoService } from '../../../../../services/videoService';
 import { UserVideo } from '../../../videos/user-video';
-import { getUploaderName, getVideoSource } from '../../../videos/video-utils';
+import { VideoCard } from '../../../videos/video-card/video-card.component';
 
 @Component({
   selector: 'app-liked-videos-section',
-  imports: [CommonModule, RouterLink],
-  templateUrl: './liked-videos-section.html',
-  styleUrl: '../profile.scss',
+  imports: [CommonModule, VideoCard],
+  templateUrl: './liked-videos-section.component.html',
+  styleUrl: '../profile.component.scss',
 })
 export class LikedVideosSection implements OnInit, OnDestroy {
   likedVideos: UserVideo[] = [];
   loadingLikedVideos = false;
   likedVideoError: string | null = null;
-  readonly getUploaderName = getUploaderName;
-  readonly getVideoSource = getVideoSource;
   private readonly destroy$ = new Subject<void>();
 
   constructor(

@@ -7,8 +7,8 @@ import { LoginRequest } from './login-request';
 @Component({
   selector: 'app-login-component',
   imports: [CommonModule, RouterLink, FormsModule],
-  templateUrl: './login-component.html',
-  styleUrl: './login-component.scss',
+  templateUrl: './login.component.html',
+  styleUrl: './login.component.scss',
 })
 export class LoginComponent {
   loginData: LoginRequest = {

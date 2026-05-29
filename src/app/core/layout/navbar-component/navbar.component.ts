@@ -7,8 +7,8 @@ import { AuthService } from '../../../../services/authService';
   standalone: true,
   selector: 'app-navbar-component',
   imports: [RouterLink, CommonModule],
-  templateUrl: './navbar-component.html',
-  styleUrl: './navbar-component.scss',
+  templateUrl: './navbar.component.html',
+  styleUrl: './navbar.component.scss',
 })
 export class NavbarComponent {
   constructor(
