@@ -50,16 +50,16 @@
     <div class="profile-videos-header">
       <div>
         <h2>Mes vidéos</h2>
-        <p>{{ videos.length }} vidéo{{ videos.length > 1 ? 's' : '' }} publiée{{ videos.length > 1 ? 's' : '' }}</p>
+        <p>{{ uploadedVideos.length }} vidéo{{ uploadedVideos.length > 1 ? 's' : '' }} publiée{{ uploadedVideos.length > 1 ? 's' : '' }}</p>
       </div>
     </div>
 
-    <div *ngIf="loadingVideos" class="videos-loading">
+    <div *ngIf="loadingUploadedVideos" class="videos-loading">
       <p>Chargement de vos vidéos...</p>
     </div>
 
-    <div class="video-grid" *ngIf="!loadingVideos && videos.length > 0">
-      <article class="video-card" *ngFor="let video of videos">
+    <div class="video-grid" *ngIf="!loadingUploadedVideos && uploadedVideos.length > 0">
+      <article class="video-card" *ngFor="let video of uploadedVideos">
         <a class="video-detail-link" [routerLink]="['/videos', video.id]">
           <div class="video-frame">
             <video
@@ -135,11 +135,11 @@
       </article>
     </div>
 
-    <div *ngIf="!loadingVideos && videos.length === 0" class="no-videos">
+    <div *ngIf="!loadingUploadedVideos && uploadedVideos.length === 0" class="no-videos">
       <p>Aucune vidéo enregistrée pour le moment.</p>
     </div>
 
-    <div class="error-message" *ngIf="videoError">{{ videoError }}</div>
+    <div class="error-message" *ngIf="uploadedVideoError">{{ uploadedVideoError }}</div>
   </section>
 
   <section class="profile-videos liked-videos" *ngIf="!loading && !error">

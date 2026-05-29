@@ -21,11 +21,11 @@ export class Profile implements OnInit, OnDestroy {
   loading = true;
   error: string | null = null;
   isProfessor = false;
-  videos: UserVideo[] = [];
+  uploadedVideos: UserVideo[] = [];
   likedVideos: UserVideo[] = [];
-  loadingVideos = false;
+  loadingUploadedVideos = false;
   loadingLikedVideos = false;
-  videoError: string | null = null;
+  uploadedVideoError: string | null = null;
   likedVideoError: string | null = null;
   editingVideoId: string | null = null;
   editTitle = '';
@@ -52,77 +52,86 @@ export class Profile implements OnInit, OnDestroy {
         console.log('Refresh param détecté, rechargement des vidéos');
         if (this.user) {
           if (this.isProfessor) {
-            this.loadUserVideos();
+            this.loadUploadedVideos();
           }
           this.loadLikedVideos();
         }
       }
     });
 
-    this.userService.getProfile().subscribe({
-      next: (data) => {
-        console.log('Profile récupéré:', data);
-        this.user = data;
-        this.loading = false;
-        this.authService.setCurrentUser(data);
-        this.isProfessor = this.authService.isProfessor();
-        if (this.isProfessor) {
-          this.loadUserVideos();
-        }
-        this.loadLikedVideos();
-        this.cdr.markForCheck();
-      },
-      error: (err) => {
-        console.error('Erreur lors de la récupération du profil:', err);
-        this.error = 'Non connecté ou session expirée.';
-        this.loading = false;
-        this.authService.setCurrentUser(null);
-        this.isProfessor = false;
-        this.videos = [];
-        this.likedVideos = [];
-        this.cdr.markForCheck();
-      },
-    });
+    this.userService
+      .getProfile()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (data) => {
+          console.log('Profile récupéré:', data);
+          this.user = data;
+          this.loading = false;
+          this.authService.setCurrentUser(data);
+          this.isProfessor = this.authService.isProfessor();
+          if (this.isProfessor) {
+            this.loadUploadedVideos();
+          }
+          this.loadLikedVideos();
+          this.cdr.markForCheck();
+        },
+        error: (err) => {
+          console.error('Erreur lors de la récupération du profil:', err);
+          this.error = 'Non connecté ou session expirée.';
+          this.loading = false;
+          this.authService.setCurrentUser(null);
+          this.isProfessor = false;
+          this.uploadedVideos = [];
+          this.likedVideos = [];
+          this.cdr.markForCheck();
+        },
+      });
   }
 
-  loadUserVideos(): void {
-    this.loadingVideos = true;
-    this.videoError = null;
+  loadUploadedVideos(): void {
+    this.loadingUploadedVideos = true;
+    this.uploadedVideoError = null;
 
     console.log('Appel getMyVideos()');
-    this.videoService.getMyVideos().subscribe({
-      next: (videos) => {
-        console.log('Réponse getMyVideos:', videos);
-        this.videos = videos;
-        this.loadingVideos = false;
-        this.cdr.markForCheck();
-      },
-      error: (err) => {
-        console.error('Erreur lors de la récupération des vidéos :', err);
-        this.videoError = 'Impossible de charger les vidéos.';
-        this.loadingVideos = false;
-        this.cdr.markForCheck();
-      },
-    });
+    this.videoService
+      .getMyVideos()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (uploadedVideos) => {
+          console.log('Réponse getMyVideos:', uploadedVideos);
+          this.uploadedVideos = uploadedVideos;
+          this.loadingUploadedVideos = false;
+          this.cdr.markForCheck();
+        },
+        error: (err) => {
+          console.error('Erreur lors de la récupération des vidéos :', err);
+          this.uploadedVideoError = 'Impossible de charger les vidéos.';
+          this.loadingUploadedVideos = false;
+          this.cdr.markForCheck();
+        },
+      });
   }
 
   loadLikedVideos(): void {
     this.loadingLikedVideos = true;
     this.likedVideoError = null;
 
-    this.videoService.getLikedVideos().subscribe({
-      next: (videos) => {
-        this.likedVideos = videos;
-        this.loadingLikedVideos = false;
-        this.cdr.markForCheck();
-      },
-      error: (err) => {
-        console.error('Erreur lors de la récupération des vidéos likées :', err);
-        this.likedVideoError = 'Impossible de charger les vidéos likées.';
-        this.loadingLikedVideos = false;
-        this.cdr.markForCheck();
-      },
-    });
+    this.videoService
+      .getLikedVideos()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (videos) => {
+          this.likedVideos = videos;
+          this.loadingLikedVideos = false;
+          this.cdr.markForCheck();
+        },
+        error: (err) => {
+          console.error('Erreur lors de la récupération des vidéos likées :', err);
+          this.likedVideoError = 'Impossible de charger les vidéos likées.';
+          this.loadingLikedVideos = false;
+          this.cdr.markForCheck();
+        },
+      });
   }
 
   ngOnDestroy(): void {
@@ -135,24 +144,27 @@ export class Profile implements OnInit, OnDestroy {
       return;
     }
 
-    this.videoService.deleteVideo(videoId).subscribe({
-      next: () => {
-        this.videos = this.videos.filter((video) => video.id !== videoId);
-        this.cdr.markForCheck();
-      },
-      error: (err) => {
-        console.error('Erreur lors de la suppression de la vidéo :', err);
-        this.videoError = 'Impossible de supprimer la vidéo.';
-        this.cdr.markForCheck();
-      },
-    });
+    this.videoService
+      .deleteVideo(videoId)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: () => {
+          this.uploadedVideos = this.uploadedVideos.filter((video) => video.id !== videoId);
+          this.cdr.markForCheck();
+        },
+        error: (err) => {
+          console.error('Erreur lors de la suppression de la vidéo :', err);
+          this.uploadedVideoError = 'Impossible de supprimer la vidéo.';
+          this.cdr.markForCheck();
+        },
+      });
   }
 
   startEditVideo(video: UserVideo): void {
     this.editingVideoId = video.id;
     this.editTitle = video.title ?? '';
     this.editDescription = video.description ?? '';
-    this.videoError = null;
+    this.uploadedVideoError = null;
     this.cdr.markForCheck();
   }
 
@@ -168,32 +180,35 @@ export class Profile implements OnInit, OnDestroy {
     const description = this.editDescription.trim();
 
     if (!title) {
-      this.videoError = 'Le titre de la vidéo est obligatoire.';
+      this.uploadedVideoError = 'Le titre de la vidéo est obligatoire.';
       this.cdr.markForCheck();
       return;
     }
 
     this.savingVideoId = video.id;
-    this.videoError = null;
+    this.uploadedVideoError = null;
 
-    this.videoService.updateVideo(video.id, { title, description }).subscribe({
-      next: (updatedVideo) => {
-        this.videos = this.videos.map((currentVideo) =>
-          currentVideo.id === video.id
-            ? { ...currentVideo, ...updatedVideo, title, description }
-            : currentVideo,
-        );
-        this.savingVideoId = null;
-        this.cancelEditVideo();
-        this.cdr.markForCheck();
-      },
-      error: (err) => {
-        console.error('Erreur lors de la modification de la vidéo :', err);
-        this.videoError = 'Impossible de modifier la vidéo.';
-        this.savingVideoId = null;
-        this.cdr.markForCheck();
-      },
-    });
+    this.videoService
+      .updateVideo(video.id, { title, description })
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (updatedVideo) => {
+          this.uploadedVideos = this.uploadedVideos.map((currentVideo) =>
+            currentVideo.id === video.id
+              ? { ...currentVideo, ...updatedVideo, title, description }
+              : currentVideo,
+          );
+          this.savingVideoId = null;
+          this.cancelEditVideo();
+          this.cdr.markForCheck();
+        },
+        error: (err) => {
+          console.error('Erreur lors de la modification de la vidéo :', err);
+          this.uploadedVideoError = 'Impossible de modifier la vidéo.';
+          this.savingVideoId = null;
+          this.cdr.markForCheck();
+        },
+      });
   }
 
 }
