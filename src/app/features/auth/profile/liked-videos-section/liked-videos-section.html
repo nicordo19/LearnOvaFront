@@ -1,0 +1,47 @@
+<section class="profile-videos liked-videos">
+  <div class="profile-videos-header">
+    <div>
+      <h2>Vidéos likées</h2>
+      <p>
+        {{ likedVideos.length }} vidéo{{ likedVideos.length > 1 ? 's' : '' }} aimée{{
+          likedVideos.length > 1 ? 's' : ''
+        }}
+      </p>
+    </div>
+  </div>
+
+  <div *ngIf="loadingLikedVideos" class="videos-loading">
+    <p>Chargement de vos vidéos likées...</p>
+  </div>
+
+  <div class="video-grid" *ngIf="!loadingLikedVideos && likedVideos.length > 0">
+    <article class="video-card" *ngFor="let video of likedVideos">
+      <a class="video-detail-link" [routerLink]="['/videos', video.id]">
+        <div class="video-frame">
+          <video *ngIf="getVideoSource(video) as videoSource" [src]="videoSource" muted preload="metadata"></video>
+        </div>
+      </a>
+
+      <div class="video-card-body">
+        <a class="video-title-link" [routerLink]="['/videos', video.id]">
+          <h3>{{ video.title || 'Vidéo' }}</h3>
+        </a>
+        <p class="video-description" *ngIf="video.description">{{ video.description }}</p>
+
+        <div class="video-card-footer">
+          <div>
+            <p class="video-meta">{{ getUploaderName(video) }}</p>
+            <p class="video-meta">{{ video.createdAt | date: 'dd/MM/yyyy' }}</p>
+          </div>
+          <span class="liked-badge">{{ video.likesCount || 0 }} like{{ (video.likesCount || 0) > 1 ? 's' : '' }}</span>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <div *ngIf="!loadingLikedVideos && likedVideos.length === 0" class="no-videos">
+    <p>Aucune vidéo likée pour le moment.</p>
+  </div>
+
+  <div class="error-message" *ngIf="likedVideoError">{{ likedVideoError }}</div>
+</section>
