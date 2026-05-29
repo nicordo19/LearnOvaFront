@@ -10,12 +10,13 @@ import { VideoCard } from '../../../videos/video-card/video-card.component';
   selector: 'app-liked-videos-section',
   imports: [CommonModule, VideoCard],
   templateUrl: './liked-videos-section.component.html',
-  styleUrl: '../profile.component.scss',
+  styleUrl: '../video-section.component.scss',
 })
 export class LikedVideosSection implements OnInit, OnDestroy {
   likedVideos: UserVideo[] = [];
   loadingLikedVideos = false;
   likedVideoError: string | null = null;
+  private hasLoaded = false;
   private readonly destroy$ = new Subject<void>();
 
   constructor(
@@ -26,12 +27,11 @@ export class LikedVideosSection implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.route.queryParams.pipe(takeUntil(this.destroy$)).subscribe((params) => {
-      if (params && params['refresh']) {
+      if (!this.hasLoaded || params['refresh']) {
+        this.hasLoaded = true;
         this.loadLikedVideos();
       }
     });
-
-    this.loadLikedVideos();
   }
 
   loadLikedVideos(): void {

@@ -11,7 +11,7 @@ import { getVideoSource } from '../../../videos/video-utils';
   selector: 'app-uploaded-videos-section',
   imports: [CommonModule, RouterLink, VideoEditFormComponent],
   templateUrl: './uploaded-videos-section.component.html',
-  styleUrl: '../profile.component.scss',
+  styleUrl: '../video-section.component.scss',
 })
 export class UploadedVideosSection implements OnInit, OnDestroy {
   uploadedVideos: UserVideo[] = [];
@@ -20,6 +20,7 @@ export class UploadedVideosSection implements OnInit, OnDestroy {
   editingVideoId: string | null = null;
   savingVideoId: string | null = null;
   readonly getVideoSource = getVideoSource;
+  private hasLoaded = false;
   private readonly destroy$ = new Subject<void>();
 
   constructor(
@@ -30,12 +31,11 @@ export class UploadedVideosSection implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.route.queryParams.pipe(takeUntil(this.destroy$)).subscribe((params) => {
-      if (params && params['refresh']) {
+      if (!this.hasLoaded || params['refresh']) {
+        this.hasLoaded = true;
         this.loadUploadedVideos();
       }
     });
-
-    this.loadUploadedVideos();
   }
 
   loadUploadedVideos(): void {
