@@ -44,40 +44,12 @@
         </ng-container>
 
         <ng-template #editVideoForm>
-          <div class="video-edit-form">
-            <label>
-              <span>Titre</span>
-              <input class="form-control form-control-sm" type="text" [(ngModel)]="editTitle" />
-            </label>
-
-            <label>
-              <span>Description</span>
-              <textarea class="form-control form-control-sm" rows="3" [(ngModel)]="editDescription"></textarea>
-            </label>
-          </div>
-
-          <div class="video-card-footer">
-            <p class="video-meta">{{ video.createdAt | date: 'dd/MM/yyyy' }}</p>
-
-            <div class="video-actions">
-              <button
-                type="button"
-                class="btn btn-sm btn-primary"
-                [disabled]="savingVideoId === video.id"
-                (click)="saveVideo(video)"
-              >
-                {{ savingVideoId === video.id ? 'Enregistrement...' : 'Enregistrer' }}
-              </button>
-              <button
-                type="button"
-                class="btn btn-sm btn-outline-secondary"
-                [disabled]="savingVideoId === video.id"
-                (click)="cancelEditVideo()"
-              >
-                Annuler
-              </button>
-            </div>
-          </div>
+          <app-video-edit-form
+            [video]="video"
+            [saving]="savingVideoId === video.id"
+            (save)="saveVideo(video, $event)"
+            (cancel)="cancelEditVideo()"
+          ></app-video-edit-form>
         </ng-template>
       </div>
     </article>

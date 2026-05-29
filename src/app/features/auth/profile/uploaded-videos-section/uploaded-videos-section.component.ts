@@ -1,15 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { VideoService } from '../../../../../services/videoService';
 import { UserVideo } from '../../../videos/user-video';
+import { VideoEditFormComponent, VideoEditFormValue } from '../../../videos/video-edit-form/video-edit-form.component';
 import { getVideoSource } from '../../../videos/video-utils';
 
 @Component({
   selector: 'app-uploaded-videos-section',
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [CommonModule, RouterLink, VideoEditFormComponent],
   templateUrl: './uploaded-videos-section.component.html',
   styleUrl: '../profile.component.scss',
 })
@@ -18,8 +18,6 @@ export class UploadedVideosSection implements OnInit, OnDestroy {
   loadingUploadedVideos = false;
   uploadedVideoError: string | null = null;
   editingVideoId: string | null = null;
-  editTitle = '';
-  editDescription = '';
   savingVideoId: string | null = null;
   readonly getVideoSource = getVideoSource;
   private readonly destroy$ = new Subject<void>();
@@ -85,22 +83,18 @@ export class UploadedVideosSection implements OnInit, OnDestroy {
 
   startEditVideo(video: UserVideo): void {
     this.editingVideoId = video.id;
-    this.editTitle = video.title ?? '';
-    this.editDescription = video.description ?? '';
     this.uploadedVideoError = null;
     this.cdr.markForCheck();
   }
 
   cancelEditVideo(): void {
     this.editingVideoId = null;
-    this.editTitle = '';
-    this.editDescription = '';
     this.cdr.markForCheck();
   }
 
-  saveVideo(video: UserVideo): void {
-    const title = this.editTitle.trim();
-    const description = this.editDescription.trim();
+  saveVideo(video: UserVideo, formValue: VideoEditFormValue): void {
+    const title = formValue.title.trim();
+    const description = formValue.description.trim();
 
     if (!title) {
       this.uploadedVideoError = 'Le titre de la vidéo est obligatoire.';

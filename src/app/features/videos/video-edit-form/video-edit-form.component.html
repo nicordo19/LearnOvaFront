@@ -1,0 +1,24 @@
+<div class="video-edit-form">
+  <label>
+    <span>Titre</span>
+    <input class="form-control form-control-sm" type="text" [(ngModel)]="title" />
+  </label>
+
+  <label>
+    <span>Description</span>
+    <textarea class="form-control form-control-sm" rows="3" [(ngModel)]="description"></textarea>
+  </label>
+</div>
+
+<div class="video-card-footer">
+  <p class="video-meta">{{ video.createdAt | date: 'dd/MM/yyyy' }}</p>
+
+  <div class="video-actions">
+    <button type="button" class="btn btn-sm btn-primary" [disabled]="saving" (click)="submit()">
+      {{ saving ? 'Enregistrement...' : 'Enregistrer' }}
+    </button>
+    <button type="button" class="btn btn-sm btn-outline-secondary" [disabled]="saving" (click)="cancel.emit()">
+      Annuler
+    </button>
+  </div>
+</div>

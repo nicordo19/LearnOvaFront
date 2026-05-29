@@ -244,24 +244,6 @@
   gap: $spacing-xs;
 }
 
-.video-edit-form {
-  display: grid;
-  gap: $spacing-sm;
-}
-
-.video-edit-form label {
-  display: grid;
-  gap: $spacing-xs;
-  margin: 0;
-  color: $color-text-primary;
-  font-size: $font-size-xs;
-  font-weight: $font-weight-semibold;
-}
-
-.video-edit-form textarea {
-  resize: vertical;
-}
-
 .video-meta {
   margin: 0;
   color: $color-text-muted;
