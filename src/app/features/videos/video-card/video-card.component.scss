@@ -1,11 +1,14 @@
 @import '../../../../styles/variables';
 
 .video-card {
+  height: 100%;
   min-width: 0;
 }
 
 .video-link {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   color: inherit;
   text-decoration: none;
 }
@@ -40,6 +43,9 @@
 }
 
 .video-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
   padding-top: $spacing-sm;
 }
 
@@ -68,8 +74,13 @@
 }
 
 .teacher-name {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
   color: $color-text-primary;
   font-weight: $font-weight-medium;
+  min-height: 1.1rem;
+  overflow: hidden;
 }
 
 .video-description {
@@ -78,14 +89,16 @@
   -webkit-line-clamp: 2;
   overflow: hidden;
   margin-top: $spacing-xs;
+  min-height: 2.1rem;
 }
 
 .video-footer {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   gap: $spacing-sm;
-  margin-top: $spacing-xs;
+  margin-top: auto;
+  padding-top: $spacing-xs;
 }
 
 .video-date {
