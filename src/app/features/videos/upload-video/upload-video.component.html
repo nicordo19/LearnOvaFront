@@ -13,6 +13,32 @@
   </div>
 
   <form class="upload-form" (ngSubmit)="onUploadVideo()" *ngIf="isLoggedIn && isProfessor">
+    <div class="video-fields">
+      <label for="videoTitle">
+        <span>Titre de la vidéo</span>
+        <input
+          id="videoTitle"
+          name="title"
+          type="text"
+          [(ngModel)]="title"
+          maxlength="120"
+          placeholder="Ex : Introduction aux bases d’Angular"
+        />
+      </label>
+
+      <label for="videoDescription">
+        <span>Description</span>
+        <textarea
+          id="videoDescription"
+          name="description"
+          rows="4"
+          [(ngModel)]="description"
+          maxlength="1000"
+          placeholder="Présente le contenu du cours, les objectifs ou les prérequis."
+        ></textarea>
+      </label>
+    </div>
+
     <label class="file-input-label" for="videoFile">
       <span>Sélectionner une vidéo</span>
       <input
@@ -39,9 +65,8 @@
 
     <div class="button-row">
       <button
-        type="button"
+        type="submit"
         class="secondary-button"
-        (click)="onUploadVideo()"
         [disabled]="uploading || !selectedFile || !isProfessor"
       >
         {{ uploading ? 'Upload en cours...' : 'Uploader la vidéo' }}

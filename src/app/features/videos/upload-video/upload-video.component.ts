@@ -15,6 +15,8 @@ import { VideoUploadResponse } from '../video-upload-response';
   styleUrl: './upload-video.component.scss',
 })
 export class UploadVideoComponent implements OnDestroy {
+  title = '';
+  description = '';
   selectedFile: File | null = null;
   selectedFileName = '';
   selectedFileSize = '';
@@ -84,7 +86,7 @@ export class UploadVideoComponent implements OnDestroy {
     }
 
     this.uploading = true;
-    this.videoService.uploadVideo(this.selectedFile).subscribe({
+    this.videoService.uploadVideo(this.selectedFile, this.title, this.description).subscribe({
       next: (response: VideoUploadResponse) => {
         this.uploading = false;
         this.uploadSuccess = true;

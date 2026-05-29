@@ -20,7 +20,7 @@ export class VideoService {
 
   constructor(private http: HttpClient) {}
 
-  uploadVideo(file: File): Observable<VideoUploadResponse> {
+  uploadVideo(file: File, title = '', description = ''): Observable<VideoUploadResponse> {
     const validationError = this.validateFile(file);
 
     if (validationError) {
@@ -29,6 +29,8 @@ export class VideoService {
 
     const formData = new FormData();
     formData.append('file', file, file.name);
+    formData.append('title', title.trim());
+    formData.append('description', description.trim());
 
     return this.http
       .post<VideoUploadResponse>(this.uploadUrl, formData, {

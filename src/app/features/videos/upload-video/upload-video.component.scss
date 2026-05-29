@@ -33,6 +33,41 @@
   gap: 1.5rem;
 }
 
+.video-fields {
+  display: grid;
+  gap: 1rem;
+}
+
+.video-fields label {
+  display: grid;
+  gap: 0.45rem;
+  color: #111827;
+  font-weight: 600;
+}
+
+.video-fields input,
+.video-fields textarea {
+  width: 100%;
+  border: 1px solid #d1d5db;
+  border-radius: 0.85rem;
+  background: #ffffff;
+  color: #111827;
+  font: inherit;
+  font-weight: 400;
+  padding: 0.85rem 1rem;
+}
+
+.video-fields textarea {
+  resize: vertical;
+}
+
+.video-fields input:focus,
+.video-fields textarea:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.14);
+  outline: none;
+}
+
 .file-input-label {
   display: inline-flex;
   align-items: center;
