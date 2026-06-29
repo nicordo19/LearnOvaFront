@@ -11,17 +11,21 @@ Dans ce projet, les tests couvrent actuellement :
 
 - l'affichage du bouton `Connexion`
 - l'ouverture du formulaire de connexion
+- le blocage du formulaire si les champs obligatoires sont vides
+- l'erreur de connexion avec de mauvais identifiants
 - la connexion reelle d'un professeur avec le backend et la base
 - l'affichage du profil apres connexion
 - l'affichage de la section `Mes videos`
+- la deconnexion d'un professeur connecte
+- le refus d'acces au profil pour un visiteur non connecte
 - l'affichage du bouton `Inscription`
 - l'ouverture du formulaire d'inscription
 
 ## Fichiers importants
 
 - `playwright.config.ts` : configuration Playwright
-- `tests/bouton-login.spec.ts` : tests de connexion et profil professeur
-- `tests/bouton-register.spec.ts` : tests du bouton et formulaire d'inscription
+- `tests/login-test/bouton-login.spec.ts` : tests de connexion et profil professeur
+- `tests/register-test/bouton-register.spec.ts` : tests du bouton et formulaire d'inscription
 - `playwright-report/` : rapport HTML genere apres execution
 - `test-results/` : traces et contextes d'erreur generes par Playwright
 - `tsconfig.playwright.json` : configuration TypeScript dediee a Playwright
@@ -72,13 +76,13 @@ Cette commande lance tous les tests dans le dossier `tests/`.
 Connexion :
 
 ```bash
-npx playwright test tests/bouton-login.spec.ts --project=chromium --reporter=list
+npx playwright test tests/login-test/bouton-login.spec.ts --project=chromium --reporter=list
 ```
 
 Inscription :
 
 ```bash
-npx playwright test tests/bouton-register.spec.ts --project=chromium --reporter=list
+npx playwright test tests/register-test/bouton-register.spec.ts --project=chromium --reporter=list
 ```
 
 `--project=chromium` lance uniquement Chromium.
@@ -101,7 +105,7 @@ Le mode UI permet de :
 
 ## Lancer le test E2E reel de connexion professeur
 
-Le test `virify professor have correct credentials` utilise un vrai compte professeur.
+Le test `Professor can login and see their profile videos` utilise un vrai compte professeur.
 Il ne mocke pas les appels API.
 
 Il faut fournir les identifiants au moment de lancer la commande :
@@ -109,7 +113,7 @@ Il faut fournir les identifiants au moment de lancer la commande :
 ```bash
 E2E_PROF_EMAIL="email-du-professeur" \
 E2E_PROF_PASSWORD="mot-de-passe" \
-npx playwright test tests/fichieraTester.spec.ts --project=chromium --reporter=list
+npx playwright test tests/login-test/bouton-login.spec.ts --project=chromium --reporter=list
 ```
 
 Exemple :
@@ -117,7 +121,7 @@ Exemple :
 ```bash
 E2E_PROF_EMAIL="prof@example.com" \
 E2E_PROF_PASSWORD="1234" \
-npx playwright test tests/bouton-login.spec.ts --project=chromium --reporter=list
+npx playwright test tests/login-test/bouton-login.spec.ts --project=chromium --reporter=list
 ```
 
 Ces variables evitent d'ecrire un vrai mot de passe dans le code source.
@@ -130,7 +134,7 @@ Si le compte professeur possede une video precise, il est possible de demander a
 E2E_PROF_EMAIL="email-du-professeur" \
 E2E_PROF_PASSWORD="mot-de-passe" \
 E2E_PROF_VIDEO_TITLE="Titre exact de la video" \
-npx playwright test tests/bouton-login.spec.ts --project=chromium --reporter=list
+npx playwright test tests/login-test/bouton-login.spec.ts --project=chromium --reporter=list
 ```
 
 Si `E2E_PROF_VIDEO_TITLE` n'est pas fourni, le test verifie seulement que la section `Mes videos` affiche un etat coherent :
@@ -173,12 +177,12 @@ Important : si le mode UI est deja ouvert, il faut le fermer puis le relancer av
 
 ## Lire les etapes d'un test
 
-Dans `tests/bouton-login.spec.ts`, certaines parties utilisent `test.step`.
+Dans `tests/login-test/bouton-login.spec.ts`, certaines parties utilisent `test.step`.
 
 Exemple :
 
 ```ts
-await test.step('connexted with professor account', async () => {
+await test.step('Connect with professor account', async () => {
   // actions du test
 });
 ```
