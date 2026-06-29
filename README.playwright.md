@@ -33,6 +33,9 @@ Dans ce projet, les tests couvrent actuellement :
 - l'inscription reelle d'un professeur avec le backend et la base
 - la connexion d'un professeur apres son inscription
 - la verification des droits apres inscription selon le role etudiant ou professeur
+- l'acces d'un professeur a la page d'upload video
+- l'upload reel d'une video par un professeur
+- l'affichage de la video uploadee dans le profil professeur
 
 ## Fichiers importants
 
@@ -43,6 +46,8 @@ Dans ce projet, les tests couvrent actuellement :
 - `tests/register-test/register-validation.spec.ts` : tests de validation du formulaire d'inscription
 - `tests/register-test/register-student.spec.ts` : tests d'inscription et connexion d'un etudiant
 - `tests/register-test/register-professor.spec.ts` : tests d'inscription et connexion d'un professeur
+- `tests/video-test/upload-video-professor.spec.ts` : tests d'upload video professeur
+- `tests/fixtures/test-video.mp4` : petite video utilisee par les tests d'upload
 - `playwright-report/` : rapport HTML genere apres execution
 - `test-results/` : traces et contextes d'erreur generes par Playwright
 - `tsconfig.playwright.json` : configuration TypeScript dediee a Playwright
@@ -110,6 +115,12 @@ Inscription :
 npx playwright test tests/register-test/bouton-register.spec.ts --project=chromium --reporter=list
 ```
 
+Upload video professeur :
+
+```bash
+npx playwright test tests/video-test/upload-video-professor.spec.ts --project=chromium --reporter=list
+```
+
 `--project=chromium` lance uniquement Chromium.
 
 `--reporter=list` affiche les resultats clairement dans le terminal.
@@ -150,6 +161,22 @@ npx playwright test tests/login-test/bouton-login-professor.spec.ts --project=ch
 ```
 
 Ces variables evitent d'ecrire un vrai mot de passe dans le code source.
+
+## Lancer le test E2E reel d'upload video professeur
+
+Le fichier `tests/video-test/upload-video-professor.spec.ts` utilise un vrai compte professeur.
+Il ne mocke pas les appels API.
+
+Il faut fournir les identifiants au moment de lancer la commande :
+
+```bash
+E2E_PROF_EMAIL="email-du-professeur" \
+E2E_PROF_PASSWORD="mot-de-passe" \
+npx playwright test tests/video-test/upload-video-professor.spec.ts --project=chromium --reporter=list
+```
+
+Ces tests utilisent la fixture `tests/fixtures/test-video.mp4`.
+Ils verifient que le professeur peut acceder au formulaire d'upload, selectionner une video valide, l'uploader, puis la retrouver dans son profil.
 
 ## Lancer le test E2E reel de connexion etudiant
 
