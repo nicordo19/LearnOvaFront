@@ -14,9 +14,13 @@ Dans ce projet, les tests couvrent actuellement :
 - le blocage du formulaire si les champs obligatoires sont vides
 - l'erreur de connexion avec de mauvais identifiants
 - la connexion reelle d'un professeur avec le backend et la base
+- la connexion reelle d'un etudiant avec le backend et la base
 - l'affichage du profil apres connexion
 - l'affichage de la section `Mes videos`
+- l'affichage de la section `Videos likees`
+- le masquage des actions professeur pour un etudiant
 - la deconnexion d'un professeur connecte
+- la deconnexion d'un etudiant connecte
 - le refus d'acces au profil pour un visiteur non connecte
 - l'affichage du bouton `Inscription`
 - l'ouverture du formulaire d'inscription
@@ -24,7 +28,8 @@ Dans ce projet, les tests couvrent actuellement :
 ## Fichiers importants
 
 - `playwright.config.ts` : configuration Playwright
-- `tests/login-test/bouton-login.spec.ts` : tests de connexion et profil professeur
+- `tests/login-test/bouton-login-professor.spec.ts` : tests de connexion generiques et profil professeur
+- `tests/login-test/bouton-login-student.spec.ts` : tests de connexion et profil etudiant
 - `tests/register-test/bouton-register.spec.ts` : tests du bouton et formulaire d'inscription
 - `playwright-report/` : rapport HTML genere apres execution
 - `test-results/` : traces et contextes d'erreur generes par Playwright
@@ -61,7 +66,9 @@ Pour les tests E2E reels qui se connectent a l'application, il faut aussi :
 - demarrer le backend
 - demarrer la base de donnees
 - avoir un compte professeur existant
+- avoir un compte etudiant existant
 - avoir au moins les identifiants du compte professeur
+- avoir au moins les identifiants du compte etudiant
 
 ## Lancer tous les tests
 
@@ -76,7 +83,13 @@ Cette commande lance tous les tests dans le dossier `tests/`.
 Connexion :
 
 ```bash
-npx playwright test tests/login-test/bouton-login.spec.ts --project=chromium --reporter=list
+npx playwright test tests/login-test/bouton-login-professor.spec.ts --project=chromium --reporter=list
+```
+
+Connexion etudiant :
+
+```bash
+npx playwright test tests/login-test/bouton-login-student.spec.ts --project=chromium --reporter=list
 ```
 
 Inscription :
@@ -113,7 +126,7 @@ Il faut fournir les identifiants au moment de lancer la commande :
 ```bash
 E2E_PROF_EMAIL="email-du-professeur" \
 E2E_PROF_PASSWORD="mot-de-passe" \
-npx playwright test tests/login-test/bouton-login.spec.ts --project=chromium --reporter=list
+npx playwright test tests/login-test/bouton-login-professor.spec.ts --project=chromium --reporter=list
 ```
 
 Exemple :
@@ -121,10 +134,39 @@ Exemple :
 ```bash
 E2E_PROF_EMAIL="prof@example.com" \
 E2E_PROF_PASSWORD="1234" \
-npx playwright test tests/login-test/bouton-login.spec.ts --project=chromium --reporter=list
+npx playwright test tests/login-test/bouton-login-professor.spec.ts --project=chromium --reporter=list
 ```
 
 Ces variables evitent d'ecrire un vrai mot de passe dans le code source.
+
+## Lancer le test E2E reel de connexion etudiant
+
+Le fichier `tests/login-test/bouton-login-student.spec.ts` utilise un vrai compte etudiant.
+Il ne mocke pas les appels API.
+
+Il faut fournir les identifiants au moment de lancer la commande :
+
+```bash
+E2E_STUDENT_EMAIL="email-de-l-etudiant" \
+E2E_STUDENT_PASSWORD="mot-de-passe" \
+npx playwright test tests/login-test/bouton-login-student.spec.ts --project=chromium --reporter=list
+```
+
+Exemple :
+
+```bash
+E2E_STUDENT_EMAIL="student@example.com" \
+E2E_STUDENT_PASSWORD="1234" \
+npx playwright test tests/login-test/bouton-login-student.spec.ts --project=chromium --reporter=list
+```
+
+Ces tests verifient que l'etudiant :
+
+- peut se connecter
+- voit son profil
+- voit la section `Videos likees`
+- ne voit pas les actions reservees au professeur
+- peut se deconnecter
 
 ## Verifier une video precise dans le profil
 
@@ -134,13 +176,27 @@ Si le compte professeur possede une video precise, il est possible de demander a
 E2E_PROF_EMAIL="email-du-professeur" \
 E2E_PROF_PASSWORD="mot-de-passe" \
 E2E_PROF_VIDEO_TITLE="Titre exact de la video" \
-npx playwright test tests/login-test/bouton-login.spec.ts --project=chromium --reporter=list
+npx playwright test tests/login-test/bouton-login-professor.spec.ts --project=chromium --reporter=list
 ```
 
 Si `E2E_PROF_VIDEO_TITLE` n'est pas fourni, le test verifie seulement que la section `Mes videos` affiche un etat coherent :
 
 - un compteur de videos publiees
 - ou le message `Aucune video enregistree pour le moment.`
+
+Pour un compte etudiant, il est possible de verifier une video likee precise :
+
+```bash
+E2E_STUDENT_EMAIL="email-de-l-etudiant" \
+E2E_STUDENT_PASSWORD="mot-de-passe" \
+E2E_STUDENT_LIKED_VIDEO_TITLE="Titre exact de la video likee" \
+npx playwright test tests/login-test/bouton-login-student.spec.ts --project=chromium --reporter=list
+```
+
+Si `E2E_STUDENT_LIKED_VIDEO_TITLE` n'est pas fourni, le test verifie seulement que la section `Videos likees` affiche un etat coherent :
+
+- un compteur de videos aimees
+- ou le message `Aucune video likee pour le moment.`
 
 ## Pourquoi le test professeur peut etre skipped
 
@@ -177,7 +233,7 @@ Important : si le mode UI est deja ouvert, il faut le fermer puis le relancer av
 
 ## Lire les etapes d'un test
 
-Dans `tests/login-test/bouton-login.spec.ts`, certaines parties utilisent `test.step`.
+Dans `tests/login-test/bouton-login-professor.spec.ts` et `tests/login-test/bouton-login-student.spec.ts`, certaines parties utilisent `test.step`.
 
 Exemple :
 
