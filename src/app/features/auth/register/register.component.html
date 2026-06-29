@@ -10,6 +10,10 @@
 
     <!-- Section droite avec formulaire -->
     <div class="auth-form-section">
+      <div class="alert alert-danger register-alert" role="alert" *ngIf="registerError">
+        {{ registerError }}
+      </div>
+
       <form class="auth-form" (ngSubmit)="onSubmit()">
         <!-- Boutons radio Étudiant/Professeur -->
         <div class="user-type">

@@ -24,6 +24,15 @@ Dans ce projet, les tests couvrent actuellement :
 - le refus d'acces au profil pour un visiteur non connecte
 - l'affichage du bouton `Inscription`
 - l'ouverture du formulaire d'inscription
+- la navigation depuis l'inscription vers la connexion
+- le blocage du formulaire d'inscription si les champs obligatoires sont vides
+- le blocage du formulaire d'inscription si l'e-mail est invalide
+- l'affichage d'une alerte si l'e-mail est deja utilise
+- l'inscription reelle d'un etudiant avec le backend et la base
+- la connexion d'un etudiant apres son inscription
+- l'inscription reelle d'un professeur avec le backend et la base
+- la connexion d'un professeur apres son inscription
+- la verification des droits apres inscription selon le role etudiant ou professeur
 
 ## Fichiers importants
 
@@ -31,6 +40,9 @@ Dans ce projet, les tests couvrent actuellement :
 - `tests/login-test/bouton-login-professor.spec.ts` : tests de connexion generiques et profil professeur
 - `tests/login-test/bouton-login-student.spec.ts` : tests de connexion et profil etudiant
 - `tests/register-test/bouton-register.spec.ts` : tests du bouton et formulaire d'inscription
+- `tests/register-test/register-validation.spec.ts` : tests de validation du formulaire d'inscription
+- `tests/register-test/register-student.spec.ts` : tests d'inscription et connexion d'un etudiant
+- `tests/register-test/register-professor.spec.ts` : tests d'inscription et connexion d'un professeur
 - `playwright-report/` : rapport HTML genere apres execution
 - `test-results/` : traces et contextes d'erreur generes par Playwright
 - `tsconfig.playwright.json` : configuration TypeScript dediee a Playwright

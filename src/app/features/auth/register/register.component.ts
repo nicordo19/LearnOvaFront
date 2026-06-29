@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from './../../../../services/authService';
@@ -20,10 +20,12 @@ export class RegisterComponent {
   profession: string = '';
   password: string = '';
   userType: string = '';
+  registerError: string | null = null;
 
   constructor(
     private authService: AuthService,
     private router: Router,
+    private cdr: ChangeDetectorRef,
   ) {}
   selectRole(role: string) {
     if (role === 'etudiant') {
@@ -38,6 +40,8 @@ export class RegisterComponent {
   }
 
   onSubmit() {
+    this.registerError = null;
+
     if (
       this.userType === '' ||
       this.email.trim() === '' ||
@@ -61,15 +65,49 @@ export class RegisterComponent {
       password: this.password,
     };
 
-    console.log('Inscription soumise', formData);
     this.authService.register(formData).subscribe({
-      next: (response) => {
-        console.log('Inscription réussie', response);
+      next: () => {
         this.router.navigate(['/login']);
       },
       error: (error) => {
-        console.error("Erreur lors de l'inscription", error);
+        this.registerError = this.getRegisterErrorMessage(error);
+        this.cdr.detectChanges();
       },
     });
+  }
+
+  private getRegisterErrorMessage(error: unknown): string {
+    if (typeof error !== 'object' || error === null || !('error' in error)) {
+      return "Impossible de finaliser l'inscription. Vérifiez les informations saisies.";
+    }
+
+    const responseError = error.error;
+
+    if (typeof responseError === 'string' && responseError.trim()) {
+      return responseError;
+    }
+
+    if (typeof responseError === 'object' && responseError !== null) {
+      for (const key of ['message', 'error', 'detail', 'title']) {
+        if (
+          key in responseError &&
+          typeof responseError[key as keyof typeof responseError] === 'string'
+        ) {
+          return responseError[key as keyof typeof responseError] as string;
+        }
+      }
+    }
+
+    if ('status' in error && typeof error.status === 'number') {
+      if (error.status === 409) {
+        return 'Cette adresse e-mail est déjà utilisée.';
+      }
+
+      if (error.status === 403) {
+        return "Inscription refusée. Cette adresse e-mail est peut-être déjà utilisée ou l'inscription est bloquée.";
+      }
+    }
+
+    return "Impossible de finaliser l'inscription. Vérifiez les informations saisies.";
   }
 }
