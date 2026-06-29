@@ -36,6 +36,7 @@ Dans ce projet, les tests couvrent actuellement :
 - l'acces d'un professeur a la page d'upload video
 - l'upload reel d'une video par un professeur
 - l'affichage de la video uploadee dans le profil professeur
+- l'affichage de la video uploadee dans le feed d'accueil
 
 ## Fichiers importants
 
@@ -176,7 +177,7 @@ npx playwright test tests/video-test/upload-video-professor.spec.ts --project=ch
 ```
 
 Ces tests utilisent la fixture `tests/fixtures/test-video.mp4`.
-Ils verifient que le professeur peut acceder au formulaire d'upload, selectionner une video valide, l'uploader, puis la retrouver dans son profil.
+Ils verifient que le professeur peut acceder au formulaire d'upload, selectionner une video valide, l'uploader, la retrouver dans son profil, puis la voir dans le feed d'accueil.
 
 ## Lancer le test E2E reel de connexion etudiant
 

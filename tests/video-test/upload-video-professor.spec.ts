@@ -75,3 +75,34 @@ test('Professor can upload a valid video', async ({ page }) => {
   });
 });
 
+// Vérifie qu'une vidéo uploadée par un professeur apparaît dans le feed d'accueil.
+test('Uploaded professor video appears in home feed', async ({ page }) => {
+  test.setTimeout(90_000);
+  test.skip(
+    !professorEmail || !professorPassword,
+    'Définir E2E_PROF_EMAIL et E2E_PROF_PASSWORD pour lancer ce test E2E réel.',
+  );
+  const email = professorEmail ?? '';
+  const password = professorPassword ?? '';
+  const videoTitle = `Feed Video Playwright ${Date.now()}`;
+
+  await test.step('Upload a new video with professor account', async () => {
+    await openUploadPageAsProfessor(page, email, password);
+
+    await page.locator('#videoTitle').fill(videoTitle);
+    await page.locator('#videoDescription').fill('Vidéo de test destinée au feed d’accueil.');
+    await page.locator('#videoFile').setInputFiles(videoFixturePath);
+    await page.getByRole('button', { name: 'Uploader la vidéo' }).click();
+
+    await expect(page).toHaveURL(/\/profile(\?.*)?$/);
+    await expect(page.getByRole('heading', { name: videoTitle })).toBeVisible();
+  });
+
+  await test.step('Verify uploaded video is visible on home feed', async () => {
+    await page.goto('http://localhost:4200');
+
+    await expect(page.getByRole('heading', { name: 'Vidéos de cours' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: videoTitle })).toBeVisible();
+    await expect(page.getByText('Vidéo de test destinée au feed d’accueil.')).toBeVisible();
+  });
+});
