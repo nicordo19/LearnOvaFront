@@ -58,6 +58,6 @@ test('New student can login after registration', async ({ page }) => {
     await expect(page.getByRole('button', { name: 'Mes vidéos' })).not.toBeVisible();
     await expect(page.getByRole('link', { name: 'Ajouter une vidéo' })).not.toBeVisible();
     await expect(page.getByRole('heading', { name: 'Vidéos likées' })).toBeVisible();
-    await expect(page.getByText(/vidéo aimée|vidéos aimées|Aucune vidéo likée pour le moment\./)).toBeVisible();
+    await expect(page.getByText('Aucune vidéo likée pour le moment.')).toBeVisible();
   });
 });

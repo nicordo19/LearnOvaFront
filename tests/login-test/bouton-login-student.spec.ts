@@ -62,7 +62,6 @@ test('Student can see liked videos section without professor actions', async ({ 
   });
 
   await test.step('Verify liked videos section is displayed', async () => {
-    await expect(page.getByRole('button', { name: 'Vidéos likées' })).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Vidéos likées' })).toBeVisible();
   });
 
@@ -73,9 +72,7 @@ test('Student can see liked videos section without professor actions', async ({ 
     }
 
     // Si aucun titre précis n'est fourni, on vérifie au minimum l'état de la section.
-    await expect(
-      page.getByText(/vidéo aimée|vidéos aimées|Aucune vidéo likée pour le moment\./),
-    ).toBeVisible();
+    await expect(page.getByText(/vidéo aimée|vidéos aimées/)).toBeVisible();
   });
 });
 

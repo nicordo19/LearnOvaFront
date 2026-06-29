@@ -37,6 +37,7 @@ Dans ce projet, les tests couvrent actuellement :
 - l'upload reel d'une video par un professeur
 - l'affichage de la video uploadee dans le profil professeur
 - l'affichage de la video uploadee dans le feed d'accueil
+- l'ouverture de la page detail d'une video depuis le feed d'accueil
 
 ## Fichiers importants
 
@@ -48,6 +49,7 @@ Dans ce projet, les tests couvrent actuellement :
 - `tests/register-test/register-student.spec.ts` : tests d'inscription et connexion d'un etudiant
 - `tests/register-test/register-professor.spec.ts` : tests d'inscription et connexion d'un professeur
 - `tests/video-test/upload-video-professor.spec.ts` : tests d'upload video professeur
+- `tests/video-test/video-feed-detail.spec.ts` : tests d'affichage dans le feed et d'ouverture du detail video
 - `tests/fixtures/test-video.mp4` : petite video utilisee par les tests d'upload
 - `playwright-report/` : rapport HTML genere apres execution
 - `test-results/` : traces et contextes d'erreur generes par Playwright
@@ -122,6 +124,12 @@ Upload video professeur :
 npx playwright test tests/video-test/upload-video-professor.spec.ts --project=chromium --reporter=list
 ```
 
+Feed et detail video :
+
+```bash
+npx playwright test tests/video-test/video-feed-detail.spec.ts --project=chromium --reporter=list
+```
+
 `--project=chromium` lance uniquement Chromium.
 
 `--reporter=list` affiche les resultats clairement dans le terminal.
@@ -177,7 +185,7 @@ npx playwright test tests/video-test/upload-video-professor.spec.ts --project=ch
 ```
 
 Ces tests utilisent la fixture `tests/fixtures/test-video.mp4`.
-Ils verifient que le professeur peut acceder au formulaire d'upload, selectionner une video valide, l'uploader, la retrouver dans son profil, puis la voir dans le feed d'accueil.
+Ils verifient que le professeur peut acceder au formulaire d'upload, selectionner une video valide, l'uploader, la retrouver dans son profil, la voir dans le feed d'accueil, puis ouvrir sa page detail.
 
 ## Lancer le test E2E reel de connexion etudiant
 
