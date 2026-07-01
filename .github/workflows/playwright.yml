@@ -23,10 +23,20 @@ jobs:
 
       - name: Create .env file
         run: |
+
           echo "POSTGRES_USER=${{ secrets.POSTGRES_USER }}" >> .env
           echo "POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}" >> .env
           echo "POSTGRES_DB=${{ secrets.POSTGRES_DB }}" >> .env
           echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> .env
+
+      - name: debug fill
+        run: |
+          pwd
+          ls -la
+          echo "---- backend ----"
+          ls -la backend
+          echo "---- Dockerfile backend ----"
+          cat backend/Dockerfile
 
       - name: Start Docker Compose
         run: docker compose up --build -d
